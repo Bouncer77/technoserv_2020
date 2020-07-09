@@ -15,7 +15,6 @@ public class ReadEmployee {
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
             Employee[] employees = (Employee[])ois.readObject();
-
             System.out.println(Arrays.toString(employees));
 
         } catch (IOException | ClassNotFoundException e) {

@@ -3,6 +3,7 @@ package com.kosenkov;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 /**
  * @author Kosenkov Ivan
@@ -15,6 +16,7 @@ public class WriteEmployee {
         System.out.println( "Начало сериализации!");
         Employee employee1 = new Employee("Ivanov", "Ivan", "Ivanovich",
                 42, "United States Department of Education", 100_000);
+        employee1.setPassword("123321");
 
         Employee employee2 = new Employee("Nik", "Ivan", "Ivanovich",
                 22, "United States Department of Education", 30_000);
@@ -22,15 +24,11 @@ public class WriteEmployee {
         Employee[] employees = new Employee[2];
         employees[0] = employee1;
         employees[1] = employee2;
+        System.out.println(Arrays.toString(employees));
 
         try (FileOutputStream fos = new FileOutputStream("save.bin");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
             oos.writeObject(employees);
-            /*oos.writeInt(employees.length);
-            for (Employee em : employees) {
-                oos.writeObject(em);
-            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }

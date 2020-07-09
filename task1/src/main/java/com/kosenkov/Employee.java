@@ -17,6 +17,7 @@ public class Employee implements Serializable {
     private int age;
     private String department;
     private int salary;
+    private transient String password;
 
     public Employee(String lastName, String firstName, String secondName, int age, String department, int salary) {
         this.lastName = lastName;
@@ -27,11 +28,16 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "------------------------------------------------------\n" +
                 lastName + " " + firstName + " " + secondName + "\nAge: " + age +
                 "\nDepartment: " + department + "\nsalary: " + salary +
+                "\nPassword: " + password +
                 "\n------------------------------------------------------";
     }
 
