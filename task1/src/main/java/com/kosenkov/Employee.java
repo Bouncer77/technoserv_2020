@@ -1,6 +1,7 @@
 package com.kosenkov;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Kosenkov Ivan
@@ -9,24 +10,25 @@ import java.io.Serializable;
  */
 public class Employee implements Serializable {
 
-    private static final long serialVersionUID = 2370199067824826344L;
+    private static final long serialVersionUID = 4754460787727245401L;
+
+    private int id;
+    private int departmentId;
 
     // firstName и lastName не могут быть пустыми
-    private String lastName;
     private String firstName;
+    private String lastName;
 
     private String secondName;
-    private int age;
-    private String department;
     private int salary;
     private transient String password;
 
-    public Employee(String lastName, String firstName, String secondName, int age, String department, int salary) {
-        this.lastName = lastName;
+    public Employee(String firstName, String lastName, String secondName, int id, int departmentId, int salary) {
         this.firstName = firstName;
+        this.lastName = lastName;
         this.secondName = secondName;
-        this.age = age;
-        this.department = department;
+        this.id = id;
+        this.departmentId = departmentId;
         this.salary = salary;
     }
 
@@ -37,8 +39,8 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "------------------------------------------------------\n" +
-                lastName + " " + firstName + " " + secondName + "\nAge: " + age +
-                "\nDepartment: " + department + "\nsalary: " + salary +
+                firstName + " " + lastName + " " + secondName + "\nId: " + id +
+                "\nDepartment: " + departmentId + "\nsalary: " + salary +
                 "\nPassword: " + password +
                 "\n------------------------------------------------------";
     }
@@ -50,13 +52,13 @@ public class Employee implements Serializable {
 
         Employee employee = (Employee) o;
 
-        if (age != employee.age) return false;
+        if (id != employee.id) return false;
         if (salary != employee.salary) return false;
         if (!lastName.equals(employee.lastName)) return false;
         if (!firstName.equals(employee.firstName)) return false;
-        if (secondName != null ? !secondName.equals(employee.secondName) : employee.secondName != null) return false;
+        if (!Objects.equals(secondName, employee.secondName)) return false;
         if (!password.equals(employee.password)) return false;
-        return department != null ? department.equals(employee.department) : employee.department == null;
+        return departmentId == employee.departmentId;
     }
 
     @Override
@@ -64,10 +66,30 @@ public class Employee implements Serializable {
         int result = lastName.hashCode();
         result = 31 * result + firstName.hashCode();
         result = 31 * result + (secondName != null ? secondName.hashCode() : 0);
-        result = 31 * result + age;
-        result = 31 * result + (department != null ? department.hashCode() : 0);
+        result = 31 * result + id;
+        result = 31 * result + departmentId;
         result = 31 * result + salary;
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

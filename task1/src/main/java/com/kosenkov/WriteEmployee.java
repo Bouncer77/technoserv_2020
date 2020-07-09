@@ -16,14 +16,23 @@ public class WriteEmployee {
     public static void main( String[] args ) {
 
         System.out.println( "Начало сериализации!");
-        Employee employee1 = new Employee("Ivanov", "Ivan", "Ivanovich",
-                42, "United States Department of Education", 100_000);
+
+        // United States Department of Education - 1
+        // Russian Development department - 2
+        Employee employee1 = new Employee("Ivan", "Ivanov", "Ivanovich",
+                1, 1, 100_000);
         employee1.setPassword("123321");
 
-        Employee employee2 = new Employee("Nik", "Ivan", "Ivanovich",
-                22, "United States Department of Education", 30_000);
+        Employee employee2 = new Employee("Nik", "Ivanov", "Ivanovich",
+                2, 1, 30_000);
 
-        List<Employee> employeeList = List.of(employee1, employee2);
+        Employee employee3 = new Employee("Anton", "Ivanov", "Ivanovich",
+                3, 2, 40_000);
+
+        Employee employee4 = new Employee("Marina", "Ivanova", "Ivanovich",
+                4, 2, 45_000);
+
+        List<Employee> employeeList = List.of(employee1, employee2, employee3, employee4);
         employeeList.forEach(System.out::println);
 
         try (final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.bin"))) {
