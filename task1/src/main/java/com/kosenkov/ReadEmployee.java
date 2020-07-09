@@ -14,12 +14,7 @@ public class ReadEmployee {
         try (FileInputStream fis = new FileInputStream("save.bin");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
-            int employeeCount = ois.readInt();
-            Employee[] employees = new Employee[employeeCount];
-            for (int i = 0; i < employeeCount; ++i) {
-                employees[i] = (Employee) ois.readObject();
-                //System.out.println(employees[i]);
-            }
+            Employee[] employees = (Employee[])ois.readObject();
 
             System.out.println(Arrays.toString(employees));
 

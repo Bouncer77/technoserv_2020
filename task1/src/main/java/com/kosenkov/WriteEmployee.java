@@ -24,12 +24,13 @@ public class WriteEmployee {
         employees[1] = employee2;
 
         try (FileOutputStream fos = new FileOutputStream("save.bin");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)){
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
-            oos.writeInt(employees.length);
+            oos.writeObject(employees);
+            /*oos.writeInt(employees.length);
             for (Employee em : employees) {
                 oos.writeObject(em);
-            }
+            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }
