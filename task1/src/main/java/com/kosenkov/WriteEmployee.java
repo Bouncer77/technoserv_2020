@@ -26,8 +26,7 @@ public class WriteEmployee {
         employees[1] = employee2;
         System.out.println(Arrays.toString(employees));
 
-        try (FileOutputStream fos = new FileOutputStream("save.bin");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.bin"))) {
             oos.writeObject(employees);
         } catch (IOException e) {
             e.printStackTrace();

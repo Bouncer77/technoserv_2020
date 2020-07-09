@@ -11,12 +11,9 @@ import java.util.Arrays;
 public class ReadEmployee {
     public static void main(String[] args) {
 
-        try (FileInputStream fis = new FileInputStream("save.bin");
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.bin"))){
             Employee[] employees = (Employee[])ois.readObject();
             System.out.println(Arrays.toString(employees));
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
