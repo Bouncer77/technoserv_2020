@@ -2,6 +2,7 @@ package com.kosenkov;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Kosenkov Ivan
@@ -11,9 +12,10 @@ import java.util.Arrays;
 public class ReadEmployee {
     public static void main(String[] args) {
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.bin"))){
-            Employee[] employees = (Employee[])ois.readObject();
-            System.out.println(Arrays.toString(employees));
+        try (final ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.bin"))){
+            @SuppressWarnings("unchecked")
+            List<Employee> employeeList = (List<Employee>) ois.readObject();
+            employeeList.forEach(System.out::println);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

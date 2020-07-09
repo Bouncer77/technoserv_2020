@@ -4,6 +4,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Kosenkov Ivan
@@ -21,13 +23,11 @@ public class WriteEmployee {
         Employee employee2 = new Employee("Nik", "Ivan", "Ivanovich",
                 22, "United States Department of Education", 30_000);
 
-        Employee[] employees = new Employee[2];
-        employees[0] = employee1;
-        employees[1] = employee2;
-        System.out.println(Arrays.toString(employees));
+        List<Employee> employeeList = List.of(employee1, employee2);
+        employeeList.forEach(System.out::println);
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.bin"))) {
-            oos.writeObject(employees);
+        try (final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.bin"))) {
+            oos.writeObject(employeeList);
         } catch (IOException e) {
             e.printStackTrace();
         }
