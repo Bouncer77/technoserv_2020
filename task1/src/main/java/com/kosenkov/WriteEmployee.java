@@ -20,11 +20,11 @@ public class WriteEmployee {
         // United States Department of Education - 1
         // Russian Development department - 2
         Employee employee1 = new Employee("Ivan", "Ivanov", "Ivanovich",
-                1, 1, 100_000);
+                1, 1, 200_000);
         employee1.setPassword("123321");
 
         Employee employee2 = new Employee("Nik", "Ivanov", "Ivanovich",
-                2, 1, 30_000);
+                2, 1, 270_000);
 
         Employee employee3 = new Employee("Anton", "Ivanov", "Ivanovich",
                 3, 2, 40_000);

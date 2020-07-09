@@ -58,6 +58,8 @@ public class ReadEmployee {
         departmentList.forEach(dep -> System.out.println(dep.getDepartmentId() + " : " +
                 dep.getDepartmentName() + " AvgSalary: " + dep.takeAvgSalary()));
 
+        Department.whenAvgSalaryIncreases(departmentList);
+
         return map;
     }
 }
