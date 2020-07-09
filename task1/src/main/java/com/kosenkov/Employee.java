@@ -9,10 +9,12 @@ import java.io.Serializable;
  */
 public class Employee implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2370199067824826344L;
 
+    // firstName и lastName не могут быть пустыми
     private String lastName;
     private String firstName;
+
     private String secondName;
     private int age;
     private String department;
@@ -53,6 +55,7 @@ public class Employee implements Serializable {
         if (!lastName.equals(employee.lastName)) return false;
         if (!firstName.equals(employee.firstName)) return false;
         if (secondName != null ? !secondName.equals(employee.secondName) : employee.secondName != null) return false;
+        if (!password.equals(employee.password)) return false;
         return department != null ? department.equals(employee.department) : employee.department == null;
     }
 
@@ -64,6 +67,7 @@ public class Employee implements Serializable {
         result = 31 * result + age;
         result = 31 * result + (department != null ? department.hashCode() : 0);
         result = 31 * result + salary;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 }
