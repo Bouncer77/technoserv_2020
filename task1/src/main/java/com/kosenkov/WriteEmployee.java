@@ -17,8 +17,6 @@ public class WriteEmployee {
 
         System.out.println( "Начало сериализации!");
 
-        // United States Department of Education - 1
-        // Russian Development department - 2
         Employee employee1 = new Employee("Ivan", "Ivanov", "Ivanovich",
                 1, 1, 200_000);
         employee1.setPassword("123321");

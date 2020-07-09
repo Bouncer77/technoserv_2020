@@ -1,8 +1,7 @@
 package com.kosenkov;
 
-import java.awt.datatransfer.SystemFlavorMap;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -108,90 +107,52 @@ public class Department {
             for (Department dep2 : departmentList) {
                 if (dep1.getDepartmentId() != dep2.getDepartmentId()) {
                     for (int i = 0; i < dep1.getEmployeeList().size(); i++) {
-                      dep1.averageSalaryIncreasesInBothDepartments2(i, dep2);
+                      dep1.averageSalaryIncreasesInBothDepartments(i, dep2);
                     }
                 }
             }
         }
     }
 
-    public boolean averageSalaryIncreasesInBothDepartments(int employeeNum, Department depTo) {
+    private void averageSalaryIncreasesInBothDepartments(int employeeNum, Department depTo) {
 
-        boolean salaryIncreasesInBothDepartments = false;
         double fromDepAvgSalaryBefore = this.takeAvgSalary();
         double toDepAvgSalaryBefore = depTo.takeAvgSalary();
-
         Employee employee = employeeList.get(employeeNum);
-
-        employeeList.remove(employeeNum);
-        double fromDepAvgSalaryAfter = this.takeAvgSalary();
-        depTo.getEmployeeList().add(employee);
-        double toDepAvgSalaryAfter = depTo.takeAvgSalary();
-
-        /*средняя зарплата увеличивается в обоих отделах*/
-        if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&
-        toDepAvgSalaryBefore < toDepAvgSalaryAfter) {
-
-            /*System.out.println("******************************************");
-            System.out.println(this);
-            System.out.println(depTo);*/
-
-
-            System.out.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
-                    employee.getFirstName() + " " + employee.getLastName() + " -->>>" + depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
-            System.out.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
-            System.out.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
-            salaryIncreasesInBothDepartments = true;
-
-            /*System.out.println(this);
-            System.out.println(depTo);
-            System.out.println("******************************************");*/
-        }
-
-        /*вернуть списки в исходное состояние*/
-        depTo.getEmployeeList().remove(employee);
-        this.employeeList.add(employee);
-
-        return salaryIncreasesInBothDepartments;
-    }
-
-    public boolean averageSalaryIncreasesInBothDepartments2(int employeeNum, Department depTo) {
-
-        boolean salaryIncreasesInBothDepartments = false;
-        double fromDepAvgSalaryBefore = this.takeAvgSalary();
-        double toDepAvgSalaryBefore = depTo.takeAvgSalary();
-
-        Employee employee = employeeList.get(employeeNum);
-
-        //employeeList.remove(employeeNum);
         double fromDepAvgSalaryAfter = this.takeAvgSalaryWithOutOne(employee.getSalary());
-        //depTo.getEmployeeList().add(employee);
         double toDepAvgSalaryAfter = depTo.takeAvgSalaryOneMore(employee.getSalary());
 
         /*средняя зарплата увеличивается в обоих отделах*/
         if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&
                 toDepAvgSalaryBefore < toDepAvgSalaryAfter) {
 
-            /*System.out.println("******************************************");
-            System.out.println(this);
-            System.out.println(depTo);*/
-
-
             System.out.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
-                    employee.getFirstName() + " " + employee.getLastName() + " -->>>" + depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
+                    employee.getFirstName() + " " + employee.getLastName() + " -->>>" +
+                    depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
             System.out.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
             System.out.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
-            salaryIncreasesInBothDepartments = true;
-
-            /*System.out.println(this);
-            System.out.println(depTo);
-            System.out.println("******************************************");*/
         }
+    }
 
-        /*вернуть списки в исходное состояние*/
-        /*depTo.getEmployeeList().remove(employee);
-        this.employeeList.add(employee);*/
+    public static List<Department> createDepartmentListFromEmployeeList(List<Employee> employeeList) {
+        List<Department> departmentList = new LinkedList<>();
+        for (Employee em : employeeList) {
+            boolean departmentFound = false;
+            for (Department d : departmentList) {
+                if (em.getDepartmentId() == d.getDepartmentId()) {
+                    List<Employee> emList = d.getEmployeeList();
+                    emList.add(em);
+                    departmentFound = true;
+                }
+            }
 
-        return salaryIncreasesInBothDepartments;
+            if (!departmentFound) {
+                List<Employee> employeeListTmp = new LinkedList<>();
+                employeeListTmp.add(em);
+                departmentList.add(new Department(em.getDepartmentId(),
+                        Department.takeDepartmentNameById(em.getDepartmentId()), employeeListTmp));
+            }
+        }
+        return departmentList;
     }
 }
