@@ -49,7 +49,8 @@ public class Department {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("\n" + departmentId + " : " + departmentName + "\n");
         for (Employee em : employeeList) {
-            stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).append("\n");
+            stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).
+                    append(" Salary: ").append(em.getSalary()).append("\n");
         }
         return stringBuilder.toString();
     }

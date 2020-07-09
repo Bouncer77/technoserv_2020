@@ -55,7 +55,8 @@ public class ReadEmployee {
         System.out.println("Dep List: ");
         System.out.println(departmentList);
 
-        System.out.println(departmentList.get(0).takeAvgSalary());
+        departmentList.forEach(dep -> System.out.println(dep.getDepartmentId() + " : " +
+                dep.getDepartmentName() + " AvgSalary: " + dep.takeAvgSalary()));
 
         return map;
     }
