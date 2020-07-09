@@ -1,5 +1,8 @@
 package com.kosenkov;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -126,11 +129,23 @@ public class Department {
         if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&
                 toDepAvgSalaryBefore < toDepAvgSalaryAfter) {
 
+            // Вывод в терминал
             System.out.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
-                    employee.getFirstName() + " " + employee.getLastName() + " -->>>" +
+                    employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
                     depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
             System.out.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
             System.out.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
+
+            // Запись в файл
+            try (PrintWriter pw = new PrintWriter(new File("averageSalaryIncreasesInBothDepartments.txt"))){
+                pw.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
+                        employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
+                        depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
+                pw.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
+                pw.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
