@@ -19,10 +19,17 @@ public class WriteEmployee {
         Employee employee2 = new Employee("Nik", "Ivan", "Ivanovich",
                 22, "United States Department of Education", 30_000);
 
+        Employee[] employees = new Employee[2];
+        employees[0] = employee1;
+        employees[1] = employee2;
+
         try (FileOutputStream fos = new FileOutputStream("save.bin");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
-            oos.writeObject(employee1);
-            oos.writeObject(employee2);
+
+            oos.writeInt(employees.length);
+            for (Employee em : employees) {
+                oos.writeObject(em);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package com.kosenkov;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * @author Kosenkov Ivan
@@ -10,12 +11,18 @@ import java.io.*;
 public class ReadEmployee {
     public static void main(String[] args) {
 
-        try (FileInputStream fileInputStream = new FileInputStream("save.bin");
-             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-            Employee employee1 = (Employee) objectInputStream.readObject();
-            Employee employee2 = (Employee) objectInputStream.readObject();
-            System.out.println(employee1);
-            System.out.println(employee2);
+        try (FileInputStream fis = new FileInputStream("save.bin");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            int employeeCount = ois.readInt();
+            Employee[] employees = new Employee[employeeCount];
+            for (int i = 0; i < employeeCount; ++i) {
+                employees[i] = (Employee) ois.readObject();
+                //System.out.println(employees[i]);
+            }
+
+            System.out.println(Arrays.toString(employees));
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
