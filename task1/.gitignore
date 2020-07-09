@@ -22,7 +22,6 @@ gradle-app.setting
 .gradle
 .settings/
 .classpath
-dependency-reduced-pom.xml
 ~*
 *~
 .tern-project
@@ -30,3 +29,5 @@ dependency-reduced-pom.xml
 .svn/
 */build/
 out
+
+*.bin
