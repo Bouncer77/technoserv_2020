@@ -7,7 +7,7 @@ import java.io.*;
  * Created by Kosenkov Ivan on 09.07.2020
  * task 1
  */
-public class Deserialization {
+public class ReadEmployee {
     public static void main(String[] args) {
 
         try (FileInputStream fileInputStream = new FileInputStream("save.bin");

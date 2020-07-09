@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
  * Created by Kosenkov Ivan on 09.07.2020
  * task 1
  */
-public class Serialization {
+public class WriteEmployee {
     public static void main( String[] args ) {
 
         System.out.println( "Начало сериализации!");
