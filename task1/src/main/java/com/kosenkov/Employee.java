@@ -5,9 +5,8 @@ import java.io.Serializable;
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 09.07.2020
- * lesson 1
+ * task 1
  */
-
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
