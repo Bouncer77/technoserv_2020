@@ -35,4 +35,30 @@ public class Employee implements Serializable {
                 "\nDepartment: " + department + "\nsalary: " + salary +
                 "\n------------------------------------------------------";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        if (age != employee.age) return false;
+        if (salary != employee.salary) return false;
+        if (!lastName.equals(employee.lastName)) return false;
+        if (!firstName.equals(employee.firstName)) return false;
+        if (secondName != null ? !secondName.equals(employee.secondName) : employee.secondName != null) return false;
+        return department != null ? department.equals(employee.department) : employee.department == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = lastName.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + (secondName != null ? secondName.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (department != null ? department.hashCode() : 0);
+        result = 31 * result + salary;
+        return result;
+    }
 }
