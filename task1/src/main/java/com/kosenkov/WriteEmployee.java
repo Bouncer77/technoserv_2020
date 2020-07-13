@@ -30,7 +30,13 @@ public class WriteEmployee {
         Employee employee4 = new Employee("Marina", "Ivanova", "Ivanovich",
                 4, 2, 45_000);
 
-        List<Employee> employeeList = List.of(employee1, employee2, employee3, employee4);
+        // List<Employee> employeeList = List.of(employee1, employee2, employee3, employee4); // java 9
+        List<Employee> employeeList = new LinkedList<>();
+        employeeList.add(employee1);
+        employeeList.add(employee2);
+        employeeList.add(employee3);
+        employeeList.add(employee4);
+
         employeeList.forEach(System.out::println);
 
         try (final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.bin"))) {
