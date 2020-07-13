@@ -1,0 +1,21 @@
+Косенков Иван Игоревич
+60000.55
+Russian Development department
+Вассерман Анатолий Александрович
+100000.11
+Russian Development department
+Аткинсон Роуэн
+250000.01
+United States Department of Education
+Синклер Марк
+500000.33
+United States Department of Education
+Маск Илон Рив
+1450000.44
+SpaceX
+Иванов Иван Иванович
+45000.22
+Tesla
+Иванов Михаил Иванович
+50000.00
+Tesla

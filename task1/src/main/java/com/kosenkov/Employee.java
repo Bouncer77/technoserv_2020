@@ -1,6 +1,7 @@
 package com.kosenkov;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,31 @@ public class Employee implements Serializable {
 
     private String secondName;
     private int salary;
+    private double dSalary;
     private transient String password;
+
+    private BigDecimal xSalary;
+    private String fio;
+
+    public Employee(BigDecimal xSalary, String fio) {
+        this.xSalary = xSalary;
+        this.fio = fio;
+    }
+
+    public Employee(String firstName, String lastName, String secondName, BigDecimal xSalary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.secondName = secondName;
+        this.xSalary = xSalary;
+        this.salary = xSalary.intValue();
+    }
+
+    public Employee(String firstName, String lastName, BigDecimal xSalary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.xSalary = xSalary;
+        this.salary = xSalary.intValue();
+    }
 
     public Employee(String firstName, String lastName, String secondName, int id, int departmentId, int salary) {
         this.firstName = firstName;

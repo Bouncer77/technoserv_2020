@@ -32,6 +32,54 @@ public class Department {
         this.employeeList = employeeList;
     }
 
+    public Department(int departmentId, String departmentName) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.employeeList = new LinkedList<>();
+    }
+
+    // new
+    public Department(String departmentName, Employee employee) {
+        this.departmentName = departmentName;
+        this.employeeList = new LinkedList<>();
+        employeeList.add(employee);
+    }
+
+    // new
+    public void addEmployeeToDepartment(Employee employee) {
+        this.employeeList.add(employee);
+    }
+
+    // new
+    public static void addToDepartment(Employee employee, String departmentName, List<Department> departmentList) {
+        if (hasDepartment(departmentName, departmentList)) {
+            addEmployeeToDepartment(departmentName, departmentList, employee);
+        } else {
+            departmentList.add(new Department(departmentName, employee));
+        }
+    }
+
+    // new
+    public static boolean hasDepartment(String departmentName, List<Department> departmentList) {
+        for (Department dep : departmentList) {
+            if (dep.getDepartmentName().equals(departmentName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // new
+    public static boolean addEmployeeToDepartment(String departmentName, List<Department> departmentList, Employee employee) {
+        for (Department dep : departmentList) {
+            if (dep.getDepartmentName().equals(departmentName)) {
+                dep.getEmployeeList().add(employee);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getDepartmentId() {
         return departmentId;
     }
@@ -40,8 +88,9 @@ public class Department {
         return departmentName;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    private List<Employee> getEmployeeList() {
+        return this.employeeList;
+        // return new LinkedList<>(this.employeeList);
     }
 
     public static String takeDepartmentNameById(int departmentId) {
