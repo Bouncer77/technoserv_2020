@@ -25,9 +25,16 @@ public class Department {
     }
 
     public static void addToDepartment(Employee employee, String departmentName, List<Department> departmentList) {
-        if (hasDepartment(departmentName, departmentList)) {
-            addEmployeeToDepartment(departmentName, departmentList, employee);
-        } else {
+
+        boolean isDepList = false;
+        for (Department dep : departmentList) {
+            if (departmentName.equals(dep.getDepartmentName())) {
+                isDepList = true;
+                addEmployeeToDepartment(departmentName, departmentList, employee);
+                break;
+            }
+        }
+        if (!isDepList) {
             departmentList.add(new Department(departmentName, employee));
         }
     }

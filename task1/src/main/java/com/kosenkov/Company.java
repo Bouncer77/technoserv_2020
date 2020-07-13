@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Company {
-    String companyName;
+    String companyName; //  = inputFileName
     List<Department> departmentList;
 
     public Company(List<Department> departmentList, String companyName) {

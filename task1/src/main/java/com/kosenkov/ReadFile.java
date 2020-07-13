@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.math.BigDecimal.ROUND_DOWN;
+import static java.math.BigDecimal.*;
 
 /**
  * @author Kosenkov Ivan
@@ -37,7 +37,7 @@ public class ReadFile {
                         // salary
                         String salaryLine = scanner.nextLine();
                         i++;
-                        salary = BigDecimal.valueOf(Double.parseDouble(salaryLine)).setScale(2, ROUND_DOWN);
+                        salary = BigDecimal.valueOf(Double.parseDouble(salaryLine)).setScale(2, ROUND_CEILING);
                         break;
                     case 2:
                         // depName
