@@ -22,7 +22,7 @@ public class ReadEmployee {
 
             averageSalaryPerDepartments(departmentList);
 
-            Department.whenAvgSalaryIncreases(departmentList);
+           // Department.whenAvgSalaryIncreases(departmentList);
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

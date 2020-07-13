@@ -154,19 +154,20 @@ public class Department {
 
 
 
-    public static void whenAvgSalaryIncreases(List<Department> departmentList) {
+    public static void whenAvgSalaryIncreases(List<Department> departmentList, String fileName) {
         for (Department dep1 : departmentList) {
             for (Department dep2 : departmentList) {
-                if (dep1.getDepartmentId() != dep2.getDepartmentId()) {
+                //if (dep1.getDepartmentId() != dep2.getDepartmentId()) {
+                if (!dep1.getDepartmentName().equals(dep2.getDepartmentName())) {
                     for (int i = 0; i < dep1.getEmployeeList().size(); i++) {
-                      dep1.averageSalaryIncreasesInBothDepartments(i, dep2);
+                      dep1.averageSalaryIncreasesInBothDepartments(i, dep2, fileName);
                     }
                 }
             }
         }
     }
 
-    private void averageSalaryIncreasesInBothDepartments(int employeeNum, Department depTo) {
+    private void averageSalaryIncreasesInBothDepartments(int employeeNum, Department depTo, String fileName) {
 
         double fromDepAvgSalaryBefore = this.takeAvgSalary();
         double toDepAvgSalaryBefore = depTo.takeAvgSalary();
@@ -179,21 +180,21 @@ public class Department {
                 toDepAvgSalaryBefore < toDepAvgSalaryAfter) {
 
             // Вывод в терминал
-            System.out.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
+            /*System.out.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
                     employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
                     depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
             System.out.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
-            System.out.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
+            System.out.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);*/
 
             // Запись в файл
-            try (PrintWriter pw = new PrintWriter(new File("averageSalaryIncreasesInBothDepartments.txt"))){
+            try (PrintWriter pw = new PrintWriter(new File(fileName))){
                 pw.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
                         employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
                         depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
                 pw.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
                 pw.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.out.println("Файл с именем " + fileName + " не найден!");
             }
         }
     }

@@ -1,0 +1,3 @@
+0:Tesla --- Иванов Иван -->>> 0:United States Department of Education
+before: 47500.0 | 42500.0
+after: 50000.0 | 43333.333333333336
