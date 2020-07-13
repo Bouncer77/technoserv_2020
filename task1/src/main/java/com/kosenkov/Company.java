@@ -26,4 +26,10 @@ public class Company {
         }
         return false;
     }
+
+    /* Вывести среднюю зарплату по всем отделам компании */
+    public void averageSalaryPerDepartments() {
+        System.out.println(this.companyName);
+        this.departmentList.forEach(dep -> System.out.println(dep.getDepartmentName() + " AvgSalary: " + dep.getAvgSalary()));
+    }
 }

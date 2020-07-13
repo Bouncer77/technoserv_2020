@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import static java.math.BigDecimal.ROUND_CEILING;
+
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 09.07.2020
@@ -28,9 +30,9 @@ public class Department {
 
         boolean isDepList = false;
         for (Department dep : departmentList) {
-            if (departmentName.equals(dep.getDepartmentName())) {
+            if (departmentName.equals(dep.departmentName)) {
                 isDepList = true;
-                dep.getEmployeeList().add(employee);
+                dep.employeeList.add(employee);
                 break;
             }
         }
@@ -43,32 +45,30 @@ public class Department {
         return departmentName;
     }
 
-    private List<Employee> getEmployeeList() {
-        return this.employeeList;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n"+ departmentName + "\n");
-        for (Employee em : employeeList) {
-            stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).
-                    append(" Salary: ").append(em.getSalary()).append("\n");
-        }
-        return stringBuilder.toString();
-    }
-
+    /* Рассчитать среднюю зарплату в отделе */
     public BigDecimal getAvgSalary() {
-        BigDecimal avgSalary = BigDecimal.valueOf(0.0);
-        for (Employee em : employeeList) {
-            avgSalary = avgSalary.add(em.getSalary());
-        }
+        return this.getAvgSalaryV2(this.getSumSalaryInDepartment(), this.employeeList.size());
+    }
 
-        if (!employeeList.isEmpty()) {
-            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size()), 2, RoundingMode.HALF_UP);
-            return avgSalary;
+    /* Сумма всех зарплат в отделе */
+    public BigDecimal getSumSalaryInDepartment() {
+        BigDecimal sumSalary = BigDecimal.valueOf(0.0);
+        for (Employee em : employeeList) {
+            sumSalary = sumSalary.add(em.getSalary());
         }
-        else {
-            return BigDecimal.valueOf(0.0);
+        return sumSalary;
+    }
+
+    /* Средняя зарплата по отделу */
+    public BigDecimal getAvgSalaryV2(BigDecimal sumSalary, long num) {
+        if (num > 0) {
+            if (sumSalary.compareTo(new BigDecimal("0.0")) != -1) {
+                return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.CEILING);
+            } else {
+                throw new CompanySalaryCalculatorException("Сумма зарплат оказалась меньше нуля: " + sumSalary.toString());
+            }
+        } else {
+            throw new CompanySalaryCalculatorException("Число работников при подсчете средней зарплаты оказалось равным " + num);
         }
     }
 
@@ -94,7 +94,7 @@ public class Department {
         }
 
         if (employeeList.size() > 1) {
-            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size() -1), 2);
+            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size() - 1), 2);
             return avgSalary;
         }
         else {
@@ -115,7 +115,7 @@ public class Department {
             for (Department dep2 : departmentList) {
                 if (!dep1.getDepartmentName().equals(dep2.getDepartmentName())) {
                     // System.out.println(dep1.departmentName + " -> " + dep2.departmentName);
-                    for (int i = 0; i < dep1.getEmployeeList().size(); i++) {
+                    for (int i = 0; i < dep1.employeeList.size(); i++) {
                         dep1.averageSalaryIncreasesInBothDepartments(i, dep2, fileName);
                     }
                 }
@@ -135,7 +135,8 @@ public class Department {
                 toDepAvgSalaryBefore < toDepAvgSalaryAfter) {*/
         System.out.println(this.departmentName + " : " + fromDepAvgSalaryBefore + " -> " + fromDepAvgSalaryAfter);
         System.out.println(depTo.departmentName + " : " + toDepAvgSalaryBefore + " -> " + toDepAvgSalaryAfter);
-        if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) == -1) && (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) == -1)) {
+        if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) == -1) &&
+                (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) == -1)) {
 
             System.out.println(employee.getFirstName() + " " + employee.getLastName());
 
@@ -155,5 +156,15 @@ public class Department {
             }
         }
         System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("\n"+ departmentName + "\n");
+        for (Employee em : employeeList) {
+            stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).
+                    append(" Salary: ").append(em.getSalary()).append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
