@@ -1,9 +1,6 @@
 package com.kosenkov;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * @author Kosenkov Ivan
@@ -21,8 +18,7 @@ public class MyPrint {
 
     public static void averageSalaryPerDepartments(Company company) {
         List<Department> departmentList = company.departmentList;
-        departmentList.forEach(dep -> System.out.println(dep.getDepartmentId() + " : " +
-                dep.getDepartmentName() + " AvgSalary: " + dep.takeAvgSalary()));
+        departmentList.forEach(dep -> System.out.println(dep.getDepartmentName() + " AvgSalary: " + dep.getAvgSalary()));
     }
 
     public static void printWhenAvgSalaryIncreases(Company company, String fileName) {

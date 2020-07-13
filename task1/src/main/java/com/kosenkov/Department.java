@@ -3,6 +3,7 @@ package com.kosenkov;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,12 +12,11 @@ import java.util.Map;
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 09.07.2020
- * lesson
+ * task 1
  */
 
 public class Department {
 
-    private int departmentId;
     private String departmentName;
     private List<Employee> employeeList;
 
@@ -24,18 +24,6 @@ public class Department {
     static {
         departmentMap.put(1, "United States Department of Education");
         departmentMap.put(2, "Russian Development department");
-    }
-
-    public Department(int departmentId, String departmentName, List<Employee> employeeList) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.employeeList = employeeList;
-    }
-
-    public Department(int departmentId, String departmentName) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.employeeList = new LinkedList<>();
     }
 
     // new
@@ -80,10 +68,6 @@ public class Department {
         return false;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
     public String getDepartmentName() {
         return departmentName;
     }
@@ -99,7 +83,7 @@ public class Department {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n" + departmentId + " : " + departmentName + "\n");
+        StringBuilder stringBuilder = new StringBuilder("\n"+ departmentName + "\n");
         for (Employee em : employeeList) {
             stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).
                     append(" Salary: ").append(em.getSalary()).append("\n");
@@ -107,48 +91,48 @@ public class Department {
         return stringBuilder.toString();
     }
 
-    public double takeAvgSalary() {
-        double avgSalary = 0.0;
+    public BigDecimal getAvgSalary() {
+        BigDecimal avgSalary = BigDecimal.valueOf(0.0);
         for (Employee em : employeeList) {
-            avgSalary += em.getSalary();
+            avgSalary = avgSalary.add(em.getSalary());
         }
 
         if (!employeeList.isEmpty()) {
-            avgSalary /= employeeList.size();
+            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size()));
             return avgSalary;
         }
         else {
-            return 0.0;
+            return BigDecimal.valueOf(0.0);
         }
     }
 
-    private double takeAvgSalaryOneMore(double salary) {
-        double avgSalary = salary;
+    private BigDecimal takeAvgSalaryOneMore(BigDecimal salary) {
+        BigDecimal avgSalary = new BigDecimal(salary.toString());
         for (Employee em : employeeList) {
-            avgSalary += em.getSalary();
+            avgSalary = avgSalary.add(em.getSalary());
         }
 
         if (!employeeList.isEmpty()) {
-            avgSalary /= (employeeList.size() + 1);
+            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size() + 1), 2);
             return avgSalary;
         }
         else {
-            return 0.0;
+            return BigDecimal.valueOf(0.0);
         }
     }
 
-    private double takeAvgSalaryWithOutOne(double salary) {
-        double avgSalary = -salary;
+    private BigDecimal takeAvgSalaryWithOutOne(BigDecimal salary) {
+        BigDecimal avgSalary = new BigDecimal("-" + salary.toString());
         for (Employee em : employeeList) {
-            avgSalary += em.getSalary();
+            avgSalary = avgSalary.add(em.getSalary());
         }
 
         if (employeeList.size() > 1) {
-            avgSalary /= (employeeList.size() - 1);
+            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size() -1), 2);
             return avgSalary;
         }
         else {
-            return 0.0;
+            return BigDecimal.valueOf(0.0);
         }
     }
 
@@ -157,7 +141,6 @@ public class Department {
     public static void whenAvgSalaryIncreases(List<Department> departmentList, String fileName) {
         for (Department dep1 : departmentList) {
             for (Department dep2 : departmentList) {
-                //if (dep1.getDepartmentId() != dep2.getDepartmentId()) {
                 if (!dep1.getDepartmentName().equals(dep2.getDepartmentName())) {
                     for (int i = 0; i < dep1.getEmployeeList().size(); i++) {
                       dep1.averageSalaryIncreasesInBothDepartments(i, dep2, fileName);
@@ -169,55 +152,27 @@ public class Department {
 
     private void averageSalaryIncreasesInBothDepartments(int employeeNum, Department depTo, String fileName) {
 
-        double fromDepAvgSalaryBefore = this.takeAvgSalary();
-        double toDepAvgSalaryBefore = depTo.takeAvgSalary();
+        BigDecimal fromDepAvgSalaryBefore = this.getAvgSalary();
+        BigDecimal toDepAvgSalaryBefore = depTo.getAvgSalary();
         Employee employee = employeeList.get(employeeNum);
-        double fromDepAvgSalaryAfter = this.takeAvgSalaryWithOutOne(employee.getSalary());
-        double toDepAvgSalaryAfter = depTo.takeAvgSalaryOneMore(employee.getSalary());
+        BigDecimal fromDepAvgSalaryAfter = this.takeAvgSalaryWithOutOne(employee.getSalary());
+        BigDecimal toDepAvgSalaryAfter = depTo.takeAvgSalaryOneMore(employee.getSalary());
 
         /*средняя зарплата увеличивается в обоих отделах*/
-        if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&
-                toDepAvgSalaryBefore < toDepAvgSalaryAfter) {
-
-            // Вывод в терминал
-            /*System.out.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
-                    employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
-                    depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
-            System.out.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
-            System.out.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);*/
+        /*if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&
+                toDepAvgSalaryBefore < toDepAvgSalaryAfter) {*/
+        if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) == -1) && (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) == -1)) {
 
             // Запись в файл
             try (PrintWriter pw = new PrintWriter(new File(fileName))){
-                pw.println(this.getDepartmentId() + ":" + getDepartmentName() + " --- " +
+                pw.println(getDepartmentName() + " --- " +
                         employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
-                        depTo.getDepartmentId() + ":" + depTo.getDepartmentName());
+                        depTo.getDepartmentName());
                 pw.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
                 pw.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
             } catch (FileNotFoundException e) {
                 System.out.println("Файл с именем " + fileName + " не найден!");
             }
         }
-    }
-
-    public static List<Department> createDepartmentListFromEmployeeList(List<Employee> employeeList) {
-        List<Department> departmentList = new LinkedList<>();
-        for (Employee em : employeeList) {
-            boolean departmentFound = false;
-            for (Department d : departmentList) {
-                if (em.getDepartmentId() == d.getDepartmentId()) {
-                    List<Employee> emList = d.getEmployeeList();
-                    emList.add(em);
-                    departmentFound = true;
-                }
-            }
-
-            if (!departmentFound) {
-                List<Employee> employeeListTmp = new LinkedList<>();
-                employeeListTmp.add(em);
-                departmentList.add(new Department(em.getDepartmentId(),
-                        Department.takeDepartmentNameById(em.getDepartmentId()), employeeListTmp));
-            }
-        }
-        return departmentList;
     }
 }
