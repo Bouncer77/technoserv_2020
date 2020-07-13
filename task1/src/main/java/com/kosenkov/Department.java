@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Kosenkov Ivan
@@ -20,25 +18,12 @@ public class Department {
     private String departmentName;
     private List<Employee> employeeList;
 
-    private static final Map<Integer, String> departmentMap = new HashMap<>();
-    static {
-        departmentMap.put(1, "United States Department of Education");
-        departmentMap.put(2, "Russian Development department");
-    }
-
-    // new
     public Department(String departmentName, Employee employee) {
         this.departmentName = departmentName;
         this.employeeList = new LinkedList<>();
         employeeList.add(employee);
     }
 
-    // new
-    public void addEmployeeToDepartment(Employee employee) {
-        this.employeeList.add(employee);
-    }
-
-    // new
     public static void addToDepartment(Employee employee, String departmentName, List<Department> departmentList) {
         if (hasDepartment(departmentName, departmentList)) {
             addEmployeeToDepartment(departmentName, departmentList, employee);
@@ -47,7 +32,6 @@ public class Department {
         }
     }
 
-    // new
     public static boolean hasDepartment(String departmentName, List<Department> departmentList) {
         for (Department dep : departmentList) {
             if (dep.getDepartmentName().equals(departmentName)) {
@@ -57,7 +41,6 @@ public class Department {
         return false;
     }
 
-    // new
     public static boolean addEmployeeToDepartment(String departmentName, List<Department> departmentList, Employee employee) {
         for (Department dep : departmentList) {
             if (dep.getDepartmentName().equals(departmentName)) {
@@ -74,11 +57,6 @@ public class Department {
 
     private List<Employee> getEmployeeList() {
         return this.employeeList;
-        // return new LinkedList<>(this.employeeList);
-    }
-
-    public static String takeDepartmentNameById(int departmentId) {
-        return departmentMap.getOrDefault(departmentId, "");
     }
 
     @Override
@@ -106,7 +84,7 @@ public class Department {
         }
     }
 
-    private BigDecimal takeAvgSalaryOneMore(BigDecimal salary) {
+    private BigDecimal getAvgSalaryOneMore(BigDecimal salary) {
         BigDecimal avgSalary = new BigDecimal(salary.toString());
         for (Employee em : employeeList) {
             avgSalary = avgSalary.add(em.getSalary());
@@ -121,7 +99,7 @@ public class Department {
         }
     }
 
-    private BigDecimal takeAvgSalaryWithOutOne(BigDecimal salary) {
+    private BigDecimal getAvgSalaryWithOutOne(BigDecimal salary) {
         BigDecimal avgSalary = new BigDecimal("-" + salary.toString());
         for (Employee em : employeeList) {
             avgSalary = avgSalary.add(em.getSalary());
@@ -135,8 +113,6 @@ public class Department {
             return BigDecimal.valueOf(0.0);
         }
     }
-
-
 
     public static void whenAvgSalaryIncreases(List<Department> departmentList, String fileName) {
         for (Department dep1 : departmentList) {
@@ -155,8 +131,8 @@ public class Department {
         BigDecimal fromDepAvgSalaryBefore = this.getAvgSalary();
         BigDecimal toDepAvgSalaryBefore = depTo.getAvgSalary();
         Employee employee = employeeList.get(employeeNum);
-        BigDecimal fromDepAvgSalaryAfter = this.takeAvgSalaryWithOutOne(employee.getSalary());
-        BigDecimal toDepAvgSalaryAfter = depTo.takeAvgSalaryOneMore(employee.getSalary());
+        BigDecimal fromDepAvgSalaryAfter = this.getAvgSalaryWithOutOne(employee.getSalary());
+        BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalaryOneMore(employee.getSalary());
 
         /*средняя зарплата увеличивается в обоих отделах*/
         /*if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&

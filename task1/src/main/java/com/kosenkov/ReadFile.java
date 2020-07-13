@@ -2,9 +2,7 @@ package com.kosenkov;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +20,7 @@ public class ReadFile {
         List<Department> departmentList = new LinkedList<>();
         List<Employee> employeeList = new LinkedList<>();
         Company company = null;
-        try(final Scanner scanner = new Scanner(new File(fileName))) {
+        try (final Scanner scanner = new Scanner(new File(fileName))) {
             int i = 0;
             String fioLine = "";
             BigDecimal salary = BigDecimal.valueOf(0);
@@ -50,7 +48,7 @@ public class ReadFile {
                         // save
                         String[] fio = fioLine.split(" ");
                         Employee employee = new Employee(fio[0], fio[1],
-                                fio.length == 3? fio[2] : "",
+                                fio.length == 3 ? fio[2] : "",
                                 salary);
                         employeeList.add(employee);
                         Department.addToDepartment(employee,
