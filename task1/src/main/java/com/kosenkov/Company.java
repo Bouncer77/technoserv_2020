@@ -16,4 +16,14 @@ public class Company {
         this.departmentList = departmentList;
         this.companyName = companyName;
     }
+
+    /* Метод поиска отдела в списке отделов компании */
+    public boolean hasDepartment(String departmentName) {
+        for (Department dep : departmentList) {
+            if (dep.getDepartmentName().equals(departmentName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -30,32 +30,13 @@ public class Department {
         for (Department dep : departmentList) {
             if (departmentName.equals(dep.getDepartmentName())) {
                 isDepList = true;
-                addEmployeeToDepartment(departmentName, departmentList, employee);
+                dep.getEmployeeList().add(employee);
                 break;
             }
         }
         if (!isDepList) {
             departmentList.add(new Department(departmentName, employee));
         }
-    }
-
-    public static boolean hasDepartment(String departmentName, List<Department> departmentList) {
-        for (Department dep : departmentList) {
-            if (dep.getDepartmentName().equals(departmentName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean addEmployeeToDepartment(String departmentName, List<Department> departmentList, Employee employee) {
-        for (Department dep : departmentList) {
-            if (dep.getDepartmentName().equals(departmentName)) {
-                dep.getEmployeeList().add(employee);
-                return true;
-            }
-        }
-        return false;
     }
 
     public String getDepartmentName() {
