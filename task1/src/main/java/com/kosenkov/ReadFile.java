@@ -12,7 +12,7 @@ import static java.math.BigDecimal.ROUND_DOWN;
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 13.07.2020
- * lesson
+ * task 1 part 2
  */
 
 public class ReadFile {
@@ -50,7 +50,6 @@ public class ReadFile {
                         Employee employee = new Employee(fio[0], fio[1],
                                 fio.length == 3 ? fio[2] : "",
                                 salary);
-                        employeeList.add(employee);
                         Department.addToDepartment(employee,
                                 departmentName, departmentList);
                         i = 0;
@@ -61,7 +60,7 @@ public class ReadFile {
                         i = 0;
                 }
             }
-            company = new Company(departmentList, employeeList);
+            company = new Company(departmentList, fileName);
             System.out.println("Сотрудников добавлено: " + numberEmployees);
         } catch (FileNotFoundException e) {
             System.out.println("Файл с именем " + fileName + " не найден!");
