@@ -8,6 +8,7 @@ package com.kosenkov;
 
 public class Main {
     public static void main(String[] args) {
+        ReadFile.validationInputArguments(args);
         MyPrint.printArgs(args);
         Company company = ReadFile.readFile(args[0]);
         MyPrint.averageSalaryPerDepartments(company);

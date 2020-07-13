@@ -2,6 +2,7 @@ package com.kosenkov;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -76,5 +77,29 @@ public class ReadFile {
         }
 
         return company;
+    }
+
+    public static void validationInputArguments(String[] args) {
+        // Проверка на существование файла
+        if (args.length < 2) {
+            System.out.println("Недостаточно входных аргументов");
+            System.out.println("task1 <название_входного_файла> <название_выходного_файла>");
+            System.exit(1);
+        }
+
+        if (!fileExists(args[0])) {
+            System.out.println("Файла с именем " + args[0] + " не существует");
+            System.exit(2);
+        }
+
+        if (!fileExists(args[1])) {
+            System.out.println("Файла с именем " + args[1] + " не существует");
+            System.exit(3);
+        }
+    }
+
+    private static boolean fileExists(String fileName) {
+        File file = new File(fileName);
+        return file.exists();
     }
 }
