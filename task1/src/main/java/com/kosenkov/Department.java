@@ -61,6 +61,11 @@ public class Department {
 
     /* Средняя зарплата по отделу */
     public BigDecimal getAvgSalaryV2(BigDecimal sumSalary, long num) {
+
+        if (num == 0) {
+            return BigDecimal.valueOf(0.0);
+        }
+
         if (num > 0) {
             if (sumSalary.compareTo(new BigDecimal("0.0")) != -1) {
                 return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.CEILING);
@@ -69,36 +74,6 @@ public class Department {
             }
         } else {
             throw new CompanySalaryCalculatorException("Число работников при подсчете средней зарплаты оказалось равным " + num);
-        }
-    }
-
-    private BigDecimal getAvgSalaryOneMore(BigDecimal salary) {
-        BigDecimal avgSalary = new BigDecimal(salary.toString());
-        for (Employee em : employeeList) {
-            avgSalary = avgSalary.add(em.getSalary());
-        }
-
-        if (!employeeList.isEmpty()) {
-            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size() + 1), 2);
-            return avgSalary;
-        }
-        else {
-            return BigDecimal.valueOf(0.0);
-        }
-    }
-
-    private BigDecimal getAvgSalaryWithOutOne(BigDecimal salary) {
-        BigDecimal avgSalary = new BigDecimal("-" + salary.toString());
-        for (Employee em : employeeList) {
-            avgSalary = avgSalary.add(em.getSalary());
-        }
-
-        if (employeeList.size() > 1) {
-            avgSalary = avgSalary.divide(BigDecimal.valueOf(employeeList.size() - 1), 2);
-            return avgSalary;
-        }
-        else {
-            return BigDecimal.valueOf(0.0);
         }
     }
 
@@ -127,13 +102,15 @@ public class Department {
         BigDecimal fromDepAvgSalaryBefore = this.getAvgSalary();
         BigDecimal toDepAvgSalaryBefore = depTo.getAvgSalary();
         Employee employee = employeeList.get(employeeNum);
-        BigDecimal fromDepAvgSalaryAfter = this.getAvgSalaryWithOutOne(employee.getSalary());
-        BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalaryOneMore(employee.getSalary());
+
+        BigDecimal fromDepAvgSalaryAfter = this.getAvgSalaryV2(
+                getSumSalaryInDepartment().subtract(employee.getSalary()), this.employeeList.size() - 1);
+
+        BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalaryV2(
+                depTo.getSumSalaryInDepartment().add(employee.getSalary()), depTo.employeeList.size() + 1);
 
         /*средняя зарплата увеличивается в обоих отделах*/
-        /*if (fromDepAvgSalaryBefore < fromDepAvgSalaryAfter &&
-                toDepAvgSalaryBefore < toDepAvgSalaryAfter) {*/
-        System.out.println(this.departmentName + " : " + fromDepAvgSalaryBefore + " -> " + fromDepAvgSalaryAfter);
+       System.out.println(this.departmentName + " : " + fromDepAvgSalaryBefore + " -> " + fromDepAvgSalaryAfter);
         System.out.println(depTo.departmentName + " : " + toDepAvgSalaryBefore + " -> " + toDepAvgSalaryAfter);
         if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) == -1) &&
                 (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) == -1)) {
@@ -141,7 +118,6 @@ public class Department {
             System.out.println(employee.getFirstName() + " " + employee.getLastName());
 
             // Запись в файл
-            // try (PrintWriter pw = new PrintWriter(new File(fileName))){
             try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
                 pw.println(getDepartmentName() + " --- " +
                         employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
