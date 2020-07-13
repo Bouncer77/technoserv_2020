@@ -1,11 +1,15 @@
 package com.kosenkov;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 13.07.2020
- * lesson
+ * task 1 part 2
  */
 
 public class MyPrint {
@@ -22,6 +26,14 @@ public class MyPrint {
     }
 
     public static void printWhenAvgSalaryIncreases(Company company, String fileName) {
-        Department.whenAvgSalaryIncreases(company.departmentList, fileName);
+        StringBuilder stringBuilder = new StringBuilder("***************************************\n" +
+                new Date().toString() + "\n***************************************\n");
+        stringBuilder.append(company.avgSalaryIncreaseWhenTransferringEmployeeToAnotherDepartment());
+
+        try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
+            pw.println(stringBuilder.toString());
+        } catch (IOException e) {
+            System.out.println("Файл является каталогом или не может быть создан, или открыт");
+        }
     }
 }

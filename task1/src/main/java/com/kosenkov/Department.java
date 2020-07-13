@@ -1,13 +1,9 @@
 package com.kosenkov;
 
-import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import static java.math.BigDecimal.ROUND_CEILING;
 
 /**
  * @author Kosenkov Ivan
@@ -59,6 +55,10 @@ public class Department {
         return sumSalary;
     }
 
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
     /* Средняя зарплата по отделу */
     public BigDecimal getAvgSalaryV2(BigDecimal sumSalary, long num) {
 
@@ -77,28 +77,7 @@ public class Department {
         }
     }
 
-    public static void whenAvgSalaryIncreases(List<Department> departmentList, String fileName) {
-        System.out.println(departmentList);
-        try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
-            pw.println("***************************************");
-            pw.println(new Date().toString());
-            pw.println("***************************************");
-        } catch (IOException e) {
-            System.out.println("Файл является каталогом или не может быть создан, или открыт");
-        }
-        for (Department dep1 : departmentList) {
-            for (Department dep2 : departmentList) {
-                if (!dep1.getDepartmentName().equals(dep2.getDepartmentName())) {
-                    // System.out.println(dep1.departmentName + " -> " + dep2.departmentName);
-                    for (int i = 0; i < dep1.employeeList.size(); i++) {
-                        dep1.averageSalaryIncreasesInBothDepartments(i, dep2, fileName);
-                    }
-                }
-            }
-        }
-    }
-
-    private void averageSalaryIncreasesInBothDepartments(int employeeNum, Department depTo, String fileName) {
+    public String transferringEmployeeToAnotherDepartment(int employeeNum, Department depTo) {
         BigDecimal fromDepAvgSalaryBefore = this.getAvgSalary();
         BigDecimal toDepAvgSalaryBefore = depTo.getAvgSalary();
         Employee employee = employeeList.get(employeeNum);
@@ -109,34 +88,21 @@ public class Department {
         BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalaryV2(
                 depTo.getSumSalaryInDepartment().add(employee.getSalary()), depTo.employeeList.size() + 1);
 
-        /*средняя зарплата увеличивается в обоих отделах*/
-       System.out.println(this.departmentName + " : " + fromDepAvgSalaryBefore + " -> " + fromDepAvgSalaryAfter);
-        System.out.println(depTo.departmentName + " : " + toDepAvgSalaryBefore + " -> " + toDepAvgSalaryAfter);
+        /* средняя зарплата увеличивается в обоих отделах */
         if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) == -1) &&
                 (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) == -1)) {
 
-            System.out.println(employee.getFirstName() + " " + employee.getLastName());
-
-            // Запись в файл
-            try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
-                pw.println(getDepartmentName() + " --- " +
-                        employee.getFirstName() + " " + employee.getLastName() + " -->>> " +
-                        depTo.getDepartmentName());
-                pw.println("before: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore);
-                pw.println("after: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter);
-                pw.println();
-            } catch (FileNotFoundException e) {
-                System.out.println("Файл с именем " + fileName + " не найден!");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return departmentName + " --- " + employee.getFirstName() + " " + employee.getLastName()
+                    + " -->>> " + depTo.getDepartmentName() +
+                    "\nbefore: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore +
+                    "\nafter: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter + "\n\n";
         }
-        System.out.println();
+        return "";
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n"+ departmentName + "\n");
+        StringBuilder stringBuilder = new StringBuilder("\n" + departmentName + "\n");
         for (Employee em : employeeList) {
             stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).
                     append(" Salary: ").append(em.getSalary()).append("\n");

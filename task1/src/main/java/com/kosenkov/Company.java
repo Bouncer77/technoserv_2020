@@ -17,6 +17,20 @@ public class Company {
         this.companyName = companyName;
     }
 
+    public StringBuilder avgSalaryIncreaseWhenTransferringEmployeeToAnotherDepartment() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Department dep1 : departmentList) {
+            for (Department dep2 : departmentList) {
+                if (!dep1.getDepartmentName().equals(dep2.getDepartmentName())) {
+                    for (int i = 0; i < dep1.getEmployeeList().size(); i++) {
+                        stringBuilder.append(dep1.transferringEmployeeToAnotherDepartment(i, dep2));
+                    }
+                }
+            }
+        }
+        return stringBuilder;
+    }
+
     /* Метод поиска отдела в списке отделов компании */
     public boolean hasDepartment(String departmentName) {
         for (Department dep : departmentList) {
