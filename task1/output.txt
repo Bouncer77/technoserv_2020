@@ -341,3 +341,371 @@ before: 47500.11 | 42500.17
 after: 50000.00 | 43333.52
 
 
+***************************************
+Tue Jul 14 11:54:27 MSK 2020
+***************************************
+
+***************************************
+Tue Jul 14 11:56:00 MSK 2020
+***************************************
+
+***************************************
+Tue Jul 14 11:56:34 MSK 2020
+***************************************
+
+***************************************
+Tue Jul 14 11:57:11 MSK 2020
+***************************************
+Russian Development department --- Косенков Иван -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 860000.28 | 95000.30
+
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 825000.50 | 118333.49
+
+Russian Development department --- Косенков Иван -->>> Tesla
+before: 640000.37 | 47500.11
+after: 860000.28 | 98333.59
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 640000.37 | 47500.11
+after: 825000.50 | 121666.78
+
+Russian Development department --- Косенков Иван -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 860000.28 | 160000.61
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 825000.50 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:00:22 MSK 2020
+***************************************
+Russian Development department --- Косенков Иван -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 860000.28 | 95000.30
+
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 825000.50 | 118333.49
+
+Russian Development department --- Косенков Иван -->>> Tesla
+before: 640000.37 | 47500.11
+after: 860000.28 | 98333.59
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 640000.37 | 47500.11
+after: 825000.50 | 121666.78
+
+Russian Development department --- Косенков Иван -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 860000.28 | 160000.61
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 825000.50 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:00:52 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:02:21 MSK 2020
+***************************************
+Russian Development department --- Косенков Иван -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 860000.28 | 95000.30
+
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 825000.50 | 118333.49
+
+Russian Development department --- Косенков Иван -->>> Tesla
+before: 640000.37 | 47500.11
+after: 860000.28 | 98333.59
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 640000.37 | 47500.11
+after: 825000.50 | 121666.78
+
+Russian Development department --- Косенков Иван -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 860000.28 | 160000.61
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 825000.50 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:02:30 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:02:58 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:03:27 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:08:39 MSK 2020
+***************************************
+
+***************************************
+Tue Jul 14 12:09:00 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:12:19 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:12:38 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:17:56 MSK 2020
+***************************************
+Russian Development department --- Косенков Иван -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 860000.28 | 95000.30
+
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 640000.37 | 42500.17
+after: 825000.50 | 118333.49
+
+Russian Development department --- Косенков Иван -->>> Tesla
+before: 640000.37 | 47500.11
+after: 860000.28 | 98333.59
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 640000.37 | 47500.11
+after: 825000.50 | 121666.78
+
+Russian Development department --- Косенков Иван -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 860000.28 | 160000.61
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 640000.37 | 120000.66
+after: 825000.50 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:18:10 MSK 2020
+***************************************
+Russian Development department --- Косенков Иван -->>> United States Department of Education
+before: 640000.19 | 42500.17
+after: 860000.28 | 95000.12
+
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 640000.19 | 42500.17
+after: 825000.22 | 118333.49
+
+Russian Development department --- Косенков Иван -->>> Tesla
+before: 640000.19 | 47500.11
+after: 860000.28 | 98333.41
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 640000.19 | 47500.11
+after: 825000.22 | 121666.78
+
+Russian Development department --- Косенков Иван -->>> SpaceX
+before: 640000.19 | 120000.66
+after: 860000.28 | 160000.33
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 640000.19 | 120000.66
+after: 825000.22 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:18:16 MSK 2020
+***************************************
+Russian Development department --- Косенков Иван -->>> United States Department of Education
+before: 640000.19 | 42500.17
+after: 860000.28 | 95000.12
+
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 640000.19 | 42500.17
+after: 825000.22 | 118333.49
+
+Russian Development department --- Косенков Иван -->>> Tesla
+before: 640000.19 | 47500.11
+after: 860000.28 | 98333.41
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 640000.19 | 47500.11
+after: 825000.22 | 121666.78
+
+Russian Development department --- Косенков Иван -->>> SpaceX
+before: 640000.19 | 120000.66
+after: 860000.28 | 160000.33
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 640000.19 | 120000.66
+after: 825000.22 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
+***************************************
+Tue Jul 14 12:18:35 MSK 2020
+***************************************
+Russian Development department --- Вассерман Анатолий -->>> United States Department of Education
+before: 860000.28 | 42500.17
+after: 1450000.44 | 118333.49
+
+Russian Development department --- Вассерман Анатолий -->>> Tesla
+before: 860000.28 | 47500.11
+after: 1450000.44 | 121666.78
+
+Russian Development department --- Вассерман Анатолий -->>> SpaceX
+before: 860000.28 | 120000.66
+after: 1450000.44 | 195000.39
+
+Tesla --- Иванов Иван -->>> United States Department of Education
+before: 47500.11 | 42500.17
+after: 50000.00 | 43333.52
+
+
