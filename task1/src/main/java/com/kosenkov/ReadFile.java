@@ -42,7 +42,7 @@ public class ReadFile {
                 if (!Employee.validationFio(fio) ||
                 !Employee.validationSalary(inputFields[SALARY]) ||
                 !Department.validationDepartmentName(inputFields[DEPARTMENT_NAME])) {
-                    System.out.println(Colour.ANSI_YELLOW + "Запись не принята. " + Colour.ANSI_RED + lineNumber + " : " + line + Colour.ANSI_RESET + "\n");
+                    System.out.println(MyPrint.printWarning("Запись не принята. ") + lineNumber + " : " + line + Colour.ANSI_RESET + "\n");
                     continue;
                 }
 
