@@ -36,4 +36,12 @@ public class MyPrint {
             System.out.println("Файл является каталогом или не может быть создан, или открыт");
         }
     }
+
+    public static String printWarning() {
+        return Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET;
+    }
+
+    public static String printWarning(String msg) {
+        return Colour.ANSI_YELLOW + msg + Colour.ANSI_RESET;
+    }
 }

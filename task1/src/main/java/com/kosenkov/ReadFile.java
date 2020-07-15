@@ -29,7 +29,7 @@ public class ReadFile {
                 ++lineNumber;
                 String[] inputFields = line.split(",");
                 if (inputFields.length < LAST_FIELD) {
-                    System.out.println(Colour.ANSI_YELLOW + "Предупреждение! " + Colour.ANSI_RESET +
+                    System.out.println(MyPrint.printWarning() +
                             "Недостаточно информации о работнике - требуется минимум 5 полей: " +
                             "<фимилия>,<имя>,[отчество],<зарплата>,<название отдела>\n" + "Запись не принята. " + Colour.ANSI_RED +
                             lineNumber + " : " + line + Colour.ANSI_RESET + "\n");
@@ -64,12 +64,12 @@ public class ReadFile {
         }
 
         if (!new File(args[Main.INPUT_FILE_ARGS_INDEX]).exists()) {
-            System.out.println("Файла с именем " + args[0] + " не существует");
+            System.out.println("Файла с именем " + args[Main.INPUT_FILE_ARGS_INDEX] + " не существует");
             System.exit(2);
         }
 
         if (!new File(args[Main.OUTPUT_FILE_ARGS_INDEX]).exists()) {
-            System.out.println("Файла с именем " + args[1] + " не существует");
+            System.out.println("Файла с именем " + args[Main.OUTPUT_FILE_ARGS_INDEX] + " не существует");
             System.exit(3);
         }
     }

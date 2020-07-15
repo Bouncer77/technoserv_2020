@@ -12,12 +12,12 @@ import java.util.Objects;
  */
 public class Employee {
 
-    private String firstName; // имя
     private String lastName; // фамилия
+    private String firstName; // имя
     private String secondName; // отчество
     private BigDecimal salary; // зарплата
 
-    public Employee(String firstName, String lastName, String secondName, BigDecimal salary) {
+    public Employee(String lastName, String firstName, String secondName, BigDecimal salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.secondName = secondName;
@@ -54,7 +54,7 @@ public class Employee {
     }
 
     BigDecimal getSalary() {
-        return new BigDecimal(salary.toString());
+        return salary;
     }
 
     String getFirstName() {
@@ -68,10 +68,10 @@ public class Employee {
     String getSecondName() { return secondName; }
 
     public static boolean validationSalary(String salaryLine) {
-        if (salaryLine.matches("\\d+\\.?\\d*")) {
+        if (salaryLine.matches("\\d+\\.\\d{2}")) {
             return true;
         } else {
-            System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Отброшен сотрудник с зарплатой: " + salaryLine);
+            System.out.println(MyPrint.printWarning() + " Отброшен сотрудник с зарплатой: " + salaryLine);
             return false;
         }
     }
@@ -83,18 +83,18 @@ public class Employee {
             return false;
         }
 
-        if (!fio[0].matches("[а-яА-Я]+[\\-?[а-яА-Я]*]*") || fio[0].matches("[a-zA-Z]+[\\-?[a-zA-Z]*]*")) {
+        if (!fio[0].matches("[а-яёА-ЯЁ]+[\\-?[а-яёА-ЯЁ]*]*") || fio[0].matches("[a-zA-Z]+[\\-?[a-zA-Z]*]*")) {
             System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Ошибка в имени. Имя сотрудника: " + fio[0]);
             return false;
         }
 
-        if (!fio[1].matches("[а-яА-Я]+[\\-?[а-яА-Я]*]*") || fio[1].matches("[a-zA-Z]+[\\-?[a-zA-Z]*]*")) {
+        if (!fio[1].matches("[а-яёА-ЯЁ]+[\\-?[а-яёА-ЯЁ]*]*") || fio[1].matches("[a-zA-Z]+[\\-?[a-zA-Z]*]*")) {
             System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Ошибка в фамилии. Фамилия сотрудника: " + fio[1]);
             return false;
         }
 
         if (fio.length == 3 && !fio[2].isEmpty()) {
-            if (!fio[2].matches("[а-яА-Я]+[\\-?[а-яА-Я]*]*") || fio[2].matches("[a-zA-Z]+[\\-?[a-zA-Z]*]*")) {
+            if (!fio[2].matches("[а-яёА-ЯЁ]+[\\-?[а-яёА-ЯЁ]*]*") || fio[2].matches("[a-zA-Z]+[\\-?[a-zA-Z]*]*")) {
                 System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Ошибка в отчестве. Отчество сотрудника: " + fio[2]);
                 return false;
             }

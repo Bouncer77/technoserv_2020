@@ -16,6 +16,11 @@ public class Department {
     private String departmentName;
     private List<Employee> employeeList;
 
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
+        this.employeeList = new LinkedList<>();
+    }
+
     public Department(String departmentName, Employee employee) {
         this.departmentName = departmentName;
         this.employeeList = new LinkedList<>();
@@ -61,20 +66,7 @@ public class Department {
 
     /* Средняя зарплата по отделу */
     public BigDecimal getAvgSalaryV2(BigDecimal sumSalary, long num) {
-
-        if (num == 0) {
-            return BigDecimal.valueOf(0.0);
-        }
-
-        if (num > 0) {
-            if (sumSalary.compareTo(new BigDecimal("0.0")) >= 0) {
-                return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.CEILING);
-            } else {
-                throw new CompanySalaryCalculatorException("Сумма зарплат оказалась меньше нуля: " + sumSalary.toString());
-            }
-        } else {
-            throw new CompanySalaryCalculatorException("Число работников при подсчете средней зарплаты оказалось равным " + num);
-        }
+        return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.CEILING);
     }
 
     public String transferringEmployeeToAnotherDepartment(int employeeNum, Department depTo) {
@@ -88,17 +80,9 @@ public class Department {
         BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalaryV2(
                 depTo.getSumSalaryInDepartment().add(employee.getSalary()), depTo.employeeList.size() + 1);
 
-        /* средняя зарплата увеличивается в обоих отделах */
-        if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) < 0) &&
-                (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) < 0)) {
-
-            return "Перевод сотрудника " + employee.getFirstName() + " " + employee.getLastName() + " " + employee.getSecondName() +
-                    "\nИз " + departmentName + " : " + fromDepAvgSalaryBefore + " ---> " + fromDepAvgSalaryAfter +
-                    "\nВ " + depTo.getDepartmentName() + " : " + toDepAvgSalaryBefore + " ---> " + toDepAvgSalaryAfter + "\n\n";
-                    /*"\nДо перевода: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore +
-                    "\nПосле перевода: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter + "\n\n";*/
-        }
-        return "";
+        return "Перевод сотрудника " + employee.getFirstName() + " " + employee.getLastName() + " " + employee.getSecondName() +
+                "\nИз " + departmentName + " : " + fromDepAvgSalaryBefore + " ---> " + fromDepAvgSalaryAfter +
+                "\nВ " + depTo.getDepartmentName() + " : " + toDepAvgSalaryBefore + " ---> " + toDepAvgSalaryAfter + "\n\n";
     }
 
     @Override
