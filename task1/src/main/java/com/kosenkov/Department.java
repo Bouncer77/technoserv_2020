@@ -37,7 +37,7 @@ public class Department {
         }
     }
 
-    public String getDepartmentName() {
+    String getDepartmentName() {
         return departmentName;
     }
 
@@ -55,7 +55,7 @@ public class Department {
         return sumSalary;
     }
 
-    public List<Employee> getEmployeeList() {
+    List<Employee> getEmployeeList() {
         return employeeList;
     }
 
