@@ -22,7 +22,7 @@ public class MyPrint {
 
     public static void averageSalaryPerDepartments(Company company) {
         List<Department> departmentList = company.departmentList;
-        departmentList.forEach(dep -> System.out.println(dep.getDepartmentName() + " AvgSalary: " + dep.getAvgSalary()));
+        departmentList.forEach(dep -> System.out.println(dep.getDepartmentName() + " Средняя зарплата: " + dep.getAvgSalary()));
     }
 
     public static void printWhenAvgSalaryIncreases(Company company, String fileName) {

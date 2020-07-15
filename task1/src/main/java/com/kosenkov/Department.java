@@ -67,7 +67,7 @@ public class Department {
         }
 
         if (num > 0) {
-            if (sumSalary.compareTo(new BigDecimal("0.0")) != -1) {
+            if (sumSalary.compareTo(new BigDecimal("0.0")) >= 0) {
                 return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.CEILING);
             } else {
                 throw new CompanySalaryCalculatorException("Сумма зарплат оказалась меньше нуля: " + sumSalary.toString());
@@ -89,24 +89,35 @@ public class Department {
                 depTo.getSumSalaryInDepartment().add(employee.getSalary()), depTo.employeeList.size() + 1);
 
         /* средняя зарплата увеличивается в обоих отделах */
-        if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) == -1) &&
-                (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) == -1)) {
+        if ((fromDepAvgSalaryBefore.compareTo(fromDepAvgSalaryAfter) < 0) &&
+                (toDepAvgSalaryBefore.compareTo(toDepAvgSalaryAfter) < 0)) {
 
-            return departmentName + " --- " + employee.getFirstName() + " " + employee.getLastName()
-                    + " -->>> " + depTo.getDepartmentName() +
-                    "\nbefore: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore +
-                    "\nafter: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter + "\n\n";
+            return "Перевод сотрудника " + employee.getFirstName() + " " + employee.getLastName() + " " + employee.getSecondName() +
+                    "\nИз " + departmentName + " : " + fromDepAvgSalaryBefore + " ---> " + fromDepAvgSalaryAfter +
+                    "\nВ " + depTo.getDepartmentName() + " : " + toDepAvgSalaryBefore + " ---> " + toDepAvgSalaryAfter + "\n\n";
+                    /*"\nДо перевода: " + fromDepAvgSalaryBefore + " | " + toDepAvgSalaryBefore +
+                    "\nПосле перевода: " + fromDepAvgSalaryAfter + " | " + toDepAvgSalaryAfter + "\n\n";*/
         }
         return "";
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n" + departmentName + "\n");
+        StringBuilder stringBuilder = new StringBuilder(departmentName + " | Средняя зарплата по департаменту: " + this.getAvgSalary() + "\n");
+        long i = 0;
         for (Employee em : employeeList) {
-            stringBuilder.append(em.getFirstName()).append(" ").append(em.getLastName()).
+            stringBuilder.append("    ").append(++i).append(" : ").append(em.getFirstName()).append(" ").append(em.getLastName()).
                     append(" Salary: ").append(em.getSalary()).append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public static boolean validationDepartmentName(String depName) {
+        if (depName.matches("[а-яА-Я ]+") || depName.matches("[a-zA-Z ]+") || depName.isEmpty()) {
+            return true;
+        } else {
+            System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Отброшен сотрудник с именем отдела: " + depName);
+            return false;
+        }
     }
 }

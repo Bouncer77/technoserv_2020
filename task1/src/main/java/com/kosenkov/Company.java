@@ -43,7 +43,7 @@ public class Company {
                     //  (! равна средней только в том случае рассматриваем, если у всех сотрудников по отделу одна зп)
 
                     BigDecimal avgSalaryDep1 = dep1.getAvgSalary();
-                    if (dep1.getAvgSalary().compareTo(dep2.getAvgSalary()) == 1) {
+                    if (dep1.getAvgSalary().compareTo(dep2.getAvgSalary()) > 0) {
 
                         List<Employee> employeeListDep1 = dep1.getEmployeeList();
 
@@ -74,7 +74,7 @@ public class Company {
                         }
 
                         for (int i = 0; i < employeeListDep1.size(); i++) {
-                            if (employeeListDep1.get(i).getSalary().compareTo(avgSalaryDep1) == -1) {
+                            if (employeeListDep1.get(i).getSalary().compareTo(avgSalaryDep1) < 0) {
                                 stringBuilder.append(dep1.transferringEmployeeToAnotherDepartment(i, dep2));
                             }
                         }
@@ -99,5 +99,26 @@ public class Company {
     public void averageSalaryPerDepartments() {
         System.out.println(this.companyName);
         this.departmentList.forEach(dep -> System.out.println(dep.getDepartmentName() + " AvgSalary: " + dep.getAvgSalary()));
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder(Colour.ANSI_BLUE + "Название компании: " + companyName + Colour.ANSI_RESET + "\n");
+
+        stringBuilder.append("Количество департаментов: ").append(departmentList.size()).append("\n");
+
+        long numberOfEmployees = 0;
+        for (Department dep : departmentList) {
+            numberOfEmployees += dep.getEmployeeList().size();
+        }
+        stringBuilder.append("Количество работников: ").append(numberOfEmployees).append("\n\n");
+
+        int i = 0;
+        for (Department dep : departmentList) {
+            stringBuilder.append(++i).append(" : ").append(dep.toString()).append("\n");
+        }
+        stringBuilder.append(Colour.ANSI_BLUE + "Конец информации о компании: ").append(companyName).append(Colour.ANSI_RESET);
+        return stringBuilder.toString();
     }
 }
