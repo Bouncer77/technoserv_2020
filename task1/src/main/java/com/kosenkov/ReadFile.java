@@ -21,7 +21,9 @@ public class ReadFile {
     public static final int LAST_FIELD = DEPARTMENT_NAME; // Название отдела
 
     public static Company readFile(String fileName) {
-        List<Department> departmentList = new LinkedList<>();
+
+        Company company = new Company(fileName.substring(0, fileName.lastIndexOf('.')), new HashMap<>());
+
         int lineNumber = 0;
         try (final Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
@@ -46,13 +48,20 @@ public class ReadFile {
 
                 BigDecimal salary = new BigDecimal(inputFields[SALARY]);
                 Employee employee = new Employee(fio[LAST_NAME], fio[FIRST_NAME], fio[SECOND_NAME], salary);
-                Department.addToDepartment(employee, inputFields[4], departmentList);
+
+                if (company.departmentMap.containsKey(inputFields[DEPARTMENT_NAME])) {
+                    Department department = company.departmentMap.get(inputFields[DEPARTMENT_NAME]);
+                    department.getEmployeeList().add(employee);
+                } else {
+                    company.departmentMap.put(inputFields[DEPARTMENT_NAME],
+                            new Department(inputFields[DEPARTMENT_NAME], employee));
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файл с именем " + fileName + " не найден!");
         }
 
-        return new Company(departmentList, fileName.substring(0, fileName.lastIndexOf('.')));
+        return company;
     }
 
     public static void validationInputArguments(String[] args) {

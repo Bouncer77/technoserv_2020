@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
@@ -18,11 +20,6 @@ public class MyPrint {
             System.out.println("args[" + i + "] = " + args[i]);
         }
         System.out.println();
-    }
-
-    public static void averageSalaryPerDepartments(Company company) {
-        List<Department> departmentList = company.departmentList;
-        departmentList.forEach(dep -> System.out.println(dep.getDepartmentName() + " Средняя зарплата: " + dep.getAvgSalary()));
     }
 
     public static void printWhenAvgSalaryIncreases(Company company, String fileName) {

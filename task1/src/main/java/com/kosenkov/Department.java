@@ -27,21 +27,6 @@ public class Department {
         employeeList.add(employee);
     }
 
-    public static void addToDepartment(Employee employee, String departmentName, List<Department> departmentList) {
-
-        boolean isDepList = false;
-        for (Department dep : departmentList) {
-            if (departmentName.equals(dep.departmentName)) {
-                isDepList = true;
-                dep.employeeList.add(employee);
-                break;
-            }
-        }
-        if (!isDepList) {
-            departmentList.add(new Department(departmentName, employee));
-        }
-    }
-
     String getDepartmentName() {
         return departmentName;
     }
