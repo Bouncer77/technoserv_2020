@@ -16,6 +16,7 @@ public class Main {
         MyPrint.printArgs(args);
         Company company = ReadFile.readFile(args[INPUT_FILE_ARGS_INDEX]);
         System.out.println(company);
-        MyPrint.printWhenAvgSalaryIncreases(company, args[OUTPUT_FILE_ARGS_INDEX]);
+        MyPrint.printWhenAvgSalaryIncreasesForAllGroups(company, args[OUTPUT_FILE_ARGS_INDEX]);
+        MyPrint.printWhenAvgSalaryIncreases(company, "Переводы_с_повышением_средней_зп.txt");
     }
 }

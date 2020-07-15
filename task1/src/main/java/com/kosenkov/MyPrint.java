@@ -34,6 +34,18 @@ public class MyPrint {
         }
     }
 
+    public static void printWhenAvgSalaryIncreasesForAllGroups(Company company, String fileName) {
+        StringBuilder stringBuilder = new StringBuilder("***************************************\n" +
+                new Date().toString() + "\n***************************************\n");
+        stringBuilder.append(company.avgSalaryIncreaseWhenTransferringEmployeeListToAnotherDepartment());
+
+        try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
+            pw.println(stringBuilder.toString());
+        } catch (IOException e) {
+            System.out.println("Файл является каталогом или не может быть создан, или открыт");
+        }
+    }
+
     public static String printWarning() {
         return Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET;
     }
