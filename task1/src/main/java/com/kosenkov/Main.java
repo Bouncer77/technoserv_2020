@@ -16,7 +16,10 @@ public class Main {
         MyPrint.printArgs(args);
         Company company = ReadFile.readFile(args[INPUT_FILE_ARGS_INDEX]);
         System.out.println(company);
-        MyPrint.printWhenAvgSalaryIncreasesForAllGroups(company, args[OUTPUT_FILE_ARGS_INDEX]);
-        MyPrint.printWhenAvgSalaryIncreases(company, "Переводы_с_повышением_средней_зп.txt");
+        //MyPrint.printWhenAvgSalaryIncreasesForAllGroups(company, args[OUTPUT_FILE_ARGS_INDEX]);
+        //MyPrint.printWhenAvgSalaryIncreases(company, "Переводы_с_повышением_средней_зп.txt");
+        for (Department dep : company.departmentMap.values()) {
+            dep.allListGroupForTransfer(3);
+        }
     }
 }

@@ -2,6 +2,8 @@ package com.kosenkov;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,5 +90,64 @@ public class Department {
             System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Отброшен сотрудник с именем отдела: " + depName);
             return false;
         }
+    }
+
+    public List<int[]> allListGroupForTransfer(int k) {
+        List<int[]> res = new ArrayList<>();
+
+        System.out.println(this.getDepartmentName());
+        int n = employeeList.size();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = i + 1;
+        }
+
+        int num = 1;
+
+        while (nextSet(arr, n, k)) {
+
+            System.out.print("arr = ");
+            for (int i = 0; i < k; i++) {
+                System.out.print(arr[i] + " ");
+            }
+            System.out.println();
+
+            if (validationGroupForTransfer(arr, k)) {
+                res.add(Arrays.copyOf(arr, k));
+            }
+        }
+
+        System.out.println("RES: " + res);
+        for (int[] mas : res) {
+            System.out.println(Arrays.toString(mas));
+        }
+        return res;
+    }
+
+    public static boolean nextSet(int[] arr, int n, int k) {
+        for (int i = k - 1; i >= 0 ; --i) {
+            if (arr[i] < n - k + i + 1) {
+                ++arr[i];
+                for (int j = i + 1; j < k; ++j) {
+                    arr[j] = arr[j - 1] + 1;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validationGroupForTransfer(int[] group, int k) {
+        BigDecimal sumSalary = BigDecimal.valueOf(0.0);
+        for (int i = 0; i < k; i++) {
+            sumSalary = sumSalary.add(employeeList.get(group[i] - 1).getSalary());
+        }
+        /*for (int el : group) {
+            sumSalary = sumSalary.add(employeeList.get(el - 1).getSalary());
+        }*/
+        System.out.println("SUM: " + sumSalary.toString());
+        BigDecimal avgGroupSalary = sumSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
+        System.out.println("Avg: " + avgGroupSalary.toString());
+        return avgGroupSalary.compareTo(getAvgSalary()) < 0;
     }
 }
