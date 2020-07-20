@@ -67,7 +67,7 @@ public class Employee {
 
     String getSecondName() { return secondName; }
 
-    String getFio() { return lastName + firstName + secondName; }
+    String getFio() { return lastName + " " + firstName + " " + secondName; }
 
     public static boolean validationSalary(String salaryLine) {
         if (salaryLine.matches("\\d+\\.\\d{2}")) {

@@ -53,7 +53,7 @@ public class Department {
 
     /* Средняя зарплата по отделу */
     public BigDecimal getAvgSalaryV2(BigDecimal sumSalary, long num) {
-        return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.CEILING);
+        return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.HALF_UP);
     }
 
     public String transferringEmployeeToAnotherDepartment(int employeeNum, Department depTo) {
@@ -93,7 +93,8 @@ public class Department {
     }
 
     public List<int[]> allListGroupForTransfer(int k) {
-        List<int[]> res = new ArrayList<>();
+        // List<int[]> res = new ArrayList<>();
+        List<int[]> res = new LinkedList<>(); // Для сохранения порядка вывода от меньших групп к более большим
 
         System.out.println(this.getDepartmentName());
         int n = employeeList.size();

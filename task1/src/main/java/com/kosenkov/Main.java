@@ -18,8 +18,13 @@ public class Main {
         System.out.println(company);
         //MyPrint.printWhenAvgSalaryIncreasesForAllGroups(company, args[OUTPUT_FILE_ARGS_INDEX]);
         //MyPrint.printWhenAvgSalaryIncreases(company, "Переводы_с_повышением_средней_зп.txt");
-        for (Department dep : company.departmentMap.values()) {
+
+
+        // company.getAllGroupEmployeeForTransfer();
+        MyPrint.printWhenAvgSalaryIncreasesForAllGroups(company, args[OUTPUT_FILE_ARGS_INDEX]);
+
+        /*for (Department dep : company.departmentMap.values()) {
             dep.allListGroupForTransfer(3);
-        }
+        }*/
     }
 }

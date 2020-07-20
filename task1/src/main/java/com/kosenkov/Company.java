@@ -2,10 +2,7 @@ package com.kosenkov;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Kosenkov Ivan
@@ -57,7 +54,7 @@ public class Company {
         return stringBuilder;
     }
 
-    public StringBuilder avgSalaryIncreaseWhenTransferringEmployeeListToAnotherDepartment() {
+    public StringBuilder getAllGroupEmployeeForTransfer() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Map.Entry<String, Department> entryDep1 : departmentMap.entrySet()) {
@@ -70,47 +67,86 @@ public class Company {
 
                     if (avgSalaryDep1.compareTo(avgSalaryDep2) > 0) {
 
+                        List<int[]> groupList = new ArrayList<>();
+                        // Все группы
+                        for (int i = 0; i < departmentMap.size() + 1; i++) {
+                            groupList.addAll(entryDep1.getValue().allListGroupForTransfer(i + 1));
+                        }
+
+                        // Группы при переводе которых средняя зп увеличивается в двух отделах
+                        List<int[]> growthAvgSalaryGroupList = new ArrayList<>();
                         List<Employee> employeeListDep1 = entryDep1.getValue().getEmployeeList();
-
-                        for (int i = 0; i < employeeListDep1.size(); ++i) {
-                            BigDecimal totalSalaryGroup = BigDecimal.valueOf(0.0);
-                            for (int j = 0; j <= i; ++j) {
-                                totalSalaryGroup = totalSalaryGroup.add(employeeListDep1.get(j).getSalary());
+                        for (int[] group : groupList) {
+                            BigDecimal sumSalaryInGroup = BigDecimal.valueOf(0.0);
+                            for (int value : group) {
+                                 sumSalaryInGroup = sumSalaryInGroup.add(employeeListDep1.get(value - 1).getSalary());
                             }
+                            BigDecimal avgSalaryInGroup = sumSalaryInGroup.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
 
-                            BigDecimal avgGroupSalary = totalSalaryGroup.divide(new BigDecimal(i + 1), 2, RoundingMode.CEILING);
-                            if (avgGroupSalary.compareTo(avgSalaryDep1) < 0) {
-                                BigDecimal totalSalaryDep2 = entryDep2.getValue().getSumSalaryInDepartment();
-                                totalSalaryDep2 = totalSalaryDep2.add(totalSalaryGroup); // dep2 + group
-                                long numEmplDep2 = entryDep2.getValue().getEmployeeList().size() + i + 1;
-
-                                BigDecimal avgSalaryAfterDep2 = totalSalaryDep2.divide(BigDecimal.valueOf(numEmplDep2), 2, RoundingMode.CEILING);
-
-                                BigDecimal totalSalaryDep1 = BigDecimal.valueOf(0.0);
-                                for (Employee em : employeeListDep1) {
-                                    totalSalaryDep1 = totalSalaryDep1.add(em.getSalary());
-                                }
-                                totalSalaryDep1 = totalSalaryDep1.subtract(totalSalaryGroup);
-                                long numEmplDep1 = employeeListDep1.size() - (i + 1);
-                                BigDecimal avgSalaryAfterDep1 = totalSalaryDep1.divide(BigDecimal.valueOf(numEmplDep1), 2, RoundingMode.CEILING);
-
-                                if (avgSalaryAfterDep1.compareTo(avgSalaryDep1) > 0 &&
-                                    avgSalaryAfterDep2.compareTo(avgSalaryDep2) > 0) {
-                                    stringBuilder.append("Из ").append(entryDep1.getKey()).append("\n");
-                                    stringBuilder.append("В ").append(entryDep2.getKey()).append("\n");
-                                    for (int m = 0; m <= i; ++i) {
-                                        stringBuilder.append(employeeListDep1.get(m).getFio()).append(", ");
-                                    }
-                                    stringBuilder.append("\n");
-                                }
+                            // TODO Возможно достаточно оставить одну проверку, но оставив только первую проверку в результате могут быть ошибочные данные
+                            if (avgSalaryInGroup.compareTo(avgSalaryDep1) < 0 && avgSalaryInGroup.compareTo(avgSalaryDep2) > 0) {
+                                growthAvgSalaryGroupList.add(group);
                             }
                         }
+
+                        //System.out.println("Group List: " + groupList);
+
+                        List<Employee> employeeList = entryDep1.getValue().getEmployeeList();
+
+                        stringBuilder.append("Из ").append(entryDep1.getKey()).append(" в ").append(entryDep2.getKey()).append("\n");
+                        stringBuilder.append("Средняя зарплата до перевода группы работников:\n");
+                        stringBuilder.append(entryDep1.getKey()).append(" : ").append(avgSalaryDep1).append("\n");
+                        stringBuilder.append(entryDep2.getKey()).append(" : ").append(avgSalaryDep2).append("\n\n");
+                        int groupNum = 1;
+                        for (int[] group : growthAvgSalaryGroupList) {
+                            stringBuilder.append("Группа: ").append(groupNum++).append("\n");
+                            BigDecimal groupSumSalary = BigDecimal.valueOf(0.0);
+                            for (int value : group) {
+                                Employee employee = employeeList.get(value - 1);
+                                stringBuilder.append(employee.getFio()).append(" ").append(employee.getSalary()).append("\n");
+                                groupSumSalary = groupSumSalary.add(employee.getSalary());
+                            }
+                            stringBuilder.append("\n");
+
+                            BigDecimal avgSalaryAfterForDep1 = entryDep1.getValue().getSumSalaryInDepartment().subtract(groupSumSalary).
+                                    divide(BigDecimal.valueOf(entryDep1.getValue().getEmployeeList().size() - group.length), 2, RoundingMode.HALF_UP);
+
+                            BigDecimal avgSalaryAfterForDep2 = entryDep2.getValue().getSumSalaryInDepartment().add(groupSumSalary).
+                                    divide(BigDecimal.valueOf(entryDep2.getValue().getEmployeeList().size() + group.length), 2, RoundingMode.HALF_UP);
+                            stringBuilder.append(entryDep1.getKey()).append(" : ").append(avgSalaryAfterForDep1).append("\n");
+                            stringBuilder.append(entryDep2.getKey()).append(" : ").append(avgSalaryAfterForDep2).append("\n\n\n");
+                        }
+                        stringBuilder.append("\n");
+                        //groupMap.put(entryDep1.getKey(), groupList);
+
+
                     }
                 }
             }
         }
         return stringBuilder;
     }
+    
+//    public StringBuilder avgSalaryIncreaseWhenTransferringEmployeeListToAnotherDepartment() {
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        Map<String, List<int[]>> groupMap = getAllGroupEmployeeForTransfer();
+//
+//        for (Map.Entry<String, List<int[]>> dep : groupMap.entrySet()) {
+//            stringBuilder.append("Dep: ").append(dep.getKey()).append("\n");
+//            for (int[] group : dep.getValue()) {
+//                List<Employee> employeeList = departmentMap.get(dep.getKey()).getEmployeeList();
+//                for (int i = 0; i < group.length; i++) {\
+//                    Employee employee = employeeList.get(group[i] - 1);
+//                    stringBuilder.append(employee.getFio() + " " + employee.getSalary() + "\n");
+//                }
+//            }
+//        }
+//
+//        return stringBuilder;
+//    }
+    
+    
 
     /* Вывести среднюю зарплату по всем отделам компании */
     public void printAverageSalaryPerDepartments() {

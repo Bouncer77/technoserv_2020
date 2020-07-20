@@ -4,9 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
@@ -37,7 +34,7 @@ public class MyPrint {
     public static void printWhenAvgSalaryIncreasesForAllGroups(Company company, String fileName) {
         StringBuilder stringBuilder = new StringBuilder("***************************************\n" +
                 new Date().toString() + "\n***************************************\n");
-        stringBuilder.append(company.avgSalaryIncreaseWhenTransferringEmployeeListToAnotherDepartment());
+        stringBuilder.append(company.getAllGroupEmployeeForTransfer());
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
             pw.println(stringBuilder.toString());
