@@ -30,6 +30,7 @@ public class ReadFile {
                 String line = scanner.nextLine();
                 ++lineNumber;
                 String[] inputFields = line.split(",");
+
                 if (inputFields.length < LAST_FIELD) {
                     System.out.println(MyPrint.printWarning() +
                             "Недостаточно информации о работнике - требуется минимум 5 полей: " +
@@ -37,6 +38,9 @@ public class ReadFile {
                             lineNumber + " : " + line + Colour.ANSI_RESET + "\n");
                     continue;
                 }
+
+                for (int i = 0; i < inputFields.length; i++)
+                    inputFields[i] = inputFields[i].trim();
 
                 String[] fio = {inputFields[LAST_NAME], inputFields[FIRST_NAME], inputFields[SECOND_NAME]};
                 if (!Employee.validationFio(fio) ||
@@ -61,6 +65,11 @@ public class ReadFile {
             System.out.println("Файл с именем " + fileName + " не найден!");
         }
 
+        if (company.departmentMap.isEmpty()) {
+            System.out.println("Не было принято ни одного сотрудника!");
+            System.exit(4);
+        }
+
         return company;
     }
 
@@ -79,7 +88,7 @@ public class ReadFile {
 
         if (!new File(args[Main.OUTPUT_FILE_ARGS_INDEX]).exists()) {
             System.out.println("Файла с именем " + args[Main.OUTPUT_FILE_ARGS_INDEX] + " не существует");
-            System.exit(3);
+            //System.exit(3);
         }
     }
 }

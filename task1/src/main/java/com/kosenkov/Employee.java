@@ -70,7 +70,8 @@ public class Employee {
     String getFio() { return lastName + " " + firstName + " " + secondName; }
 
     public static boolean validationSalary(String salaryLine) {
-        if (salaryLine.matches("\\d+\\.\\d{2}")) {
+
+        if (salaryLine.matches("\\d+\\.\\d{2}") || salaryLine.matches("\\d+")) {
             return true;
         } else {
             System.out.println(MyPrint.printWarning() + " Отброшен сотрудник с зарплатой: " + salaryLine);
@@ -79,6 +80,7 @@ public class Employee {
     }
 
     public static boolean validationFio(String[] fio) {
+
         if (fio.length > 3 || fio.length < 2) {
             System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Указано неверное количество аргументов для проверки ФИО." +
                     " Требуемое количество аргументов от 2-х до 3-х. Переданое - " + fio.length + " : " + Arrays.toString(fio));

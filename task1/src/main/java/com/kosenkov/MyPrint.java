@@ -3,9 +3,13 @@ package com.kosenkov;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Kosenkov Ivan
@@ -34,8 +38,12 @@ public class MyPrint {
     }
 
     public static void printWhenAvgSalaryIncreasesForAllGroups(Company company, String fileName) {
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+
         StringBuilder stringBuilder = new StringBuilder("***************************************\n" +
-                new Date().toString() + "\n***************************************\n");
+                localDateTime.getYear() + "/" + localDateTime.getMonthValue() + "/" + localDateTime.getDayOfMonth() + " " +
+                localDateTime.getHour() + ":" + localDateTime.getMinute() + "\n***************************************\n");
         stringBuilder.append(company.getAllGroupEmployeeForTransfer());
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {

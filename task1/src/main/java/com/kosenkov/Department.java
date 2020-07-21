@@ -2,10 +2,7 @@ package com.kosenkov;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Kosenkov Ivan
@@ -35,7 +32,7 @@ public class Department {
 
     /* Рассчитать среднюю зарплату в отделе */
     public BigDecimal getAvgSalary() {
-        return this.getAvgSalaryV2(this.getSumSalaryInDepartment(), this.employeeList.size());
+        return this.getAvgSalary(this.getSumSalaryInDepartment(), this.employeeList.size());
     }
 
     /* Сумма всех зарплат в отделе */
@@ -52,7 +49,7 @@ public class Department {
     }
 
     /* Средняя зарплата по отделу */
-    public BigDecimal getAvgSalaryV2(BigDecimal sumSalary, long num) {
+    public BigDecimal getAvgSalary(BigDecimal sumSalary, long num) {
         return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.HALF_UP);
     }
 
@@ -61,10 +58,10 @@ public class Department {
         BigDecimal toDepAvgSalaryBefore = depTo.getAvgSalary();
         Employee employee = employeeList.get(employeeNum);
 
-        BigDecimal fromDepAvgSalaryAfter = this.getAvgSalaryV2(
+        BigDecimal fromDepAvgSalaryAfter = this.getAvgSalary(
                 getSumSalaryInDepartment().subtract(employee.getSalary()), this.employeeList.size() - 1);
 
-        BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalaryV2(
+        BigDecimal toDepAvgSalaryAfter = depTo.getAvgSalary(
                 depTo.getSumSalaryInDepartment().add(employee.getSalary()), depTo.employeeList.size() + 1);
 
         return "Перевод сотрудника " + employee.getFirstName() + " " + employee.getLastName() + " " + employee.getSecondName() +
@@ -77,14 +74,14 @@ public class Department {
         StringBuilder stringBuilder = new StringBuilder(departmentName + " | Средняя зарплата по департаменту: " + this.getAvgSalary() + "\n");
         long i = 0;
         for (Employee em : employeeList) {
-            stringBuilder.append("    ").append(++i).append(" : ").append(em.getFirstName()).append(" ").append(em.getLastName()).
-                    append(" Salary: ").append(em.getSalary()).append("\n");
+            stringBuilder.append("    ").append(++i).append(" : ").append(em.getFio()).
+                    append(" Зарплата: ").append(em.getSalary()).append("\n");
         }
         return stringBuilder.toString();
     }
 
     public static boolean validationDepartmentName(String depName) {
-        if (depName.matches("[а-яА-Я ]+") || depName.matches("[a-zA-Z ]+") || depName.isEmpty()) {
+        if (depName.matches("[а-яА-Я 0-9]+") || depName.matches("[a-zA-Z 0-9]+") || depName.isEmpty()) {
             return true;
         } else {
             System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Отброшен сотрудник с именем отдела: " + depName);
@@ -92,41 +89,34 @@ public class Department {
         }
     }
 
-    public List<int[]> combinationsWithoutRepetitions(int k) {
-        List<int[]> res = new LinkedList<>(); // Для сохранения порядка вывода от меньших групп к более большим
+    BigDecimal getAvgGroupSalary(int[] group) {
+        BigDecimal sumGroupSalary = BigDecimal.valueOf(0.0);
+        for (int value : group) {
+            sumGroupSalary = sumGroupSalary.add(this.getEmployeeList().get(value - 1).getSalary());
+        }
+        return sumGroupSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
+    }
 
-        //System.out.println(this.getDepartmentName());
+    public List<int[]> combinationsWithoutRepetitionsAndAvgGroupSalaryLessThanAvgInDep(int k) {
+        List<int[]> groupList = new LinkedList<>(); // Для сохранения порядка вывода от меньших групп к более большим
+
         int n = employeeList.size();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = i + 1;
         }
 
-        while (nextSet(arr, n, k)) {
-
-            System.out.print("arr = ");
-            for (int i = 0; i < k; i++) {
-                System.out.print(arr[i] + " ");
+        while (nextSet(arr, k)) {
+            if (validationGroupForTransfer(arr, k)) {
+                groupList.add(Arrays.copyOf(arr, k));
             }
-            System.out.println();
-
-
-            res.add(Arrays.copyOf(arr, k));
-
-            // Условие что рассматриваем только те группы у которых средняя зп меньше чем средняя зп по отделу
-            /*if (validationGroupForTransfer(arr, k)) {
-                res.add(Arrays.copyOf(arr, k));
-            }*/
         }
 
-        /*System.out.println("RES: " + res);
-        for (int[] mas : res) {
-            System.out.println(Arrays.toString(mas));
-        }*/
-        return res;
+        return groupList;
     }
 
-    public static boolean nextSet(int[] arr, int n, int k) {
+    public static boolean nextSet(int[] arr, int k) {
+        int n = arr.length;
         for (int i = k - 1; i >= 0 ; --i) {
             if (arr[i] < n - k + i + 1) {
                 ++arr[i];
