@@ -3,7 +3,9 @@ package com.kosenkov;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Kosenkov Ivan
@@ -49,5 +51,13 @@ public class MyPrint {
 
     public static String printWarning(String msg) {
         return Colour.ANSI_YELLOW + msg + Colour.ANSI_RESET;
+    }
+
+    public static String printGroupList(List<int[]> groupList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int[] group : groupList) {
+            stringBuilder.append(Arrays.toString(group)).append("\n");
+        }
+        return stringBuilder.toString();
     }
 }

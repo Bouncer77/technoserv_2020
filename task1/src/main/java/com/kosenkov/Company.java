@@ -68,10 +68,14 @@ public class Company {
                     if (avgSalaryDep1.compareTo(avgSalaryDep2) > 0) {
 
                         List<int[]> groupList = new ArrayList<>();
+
                         // Все группы
                         for (int i = 0; i < departmentMap.size() + 1; i++) {
-                            groupList.addAll(entryDep1.getValue().allListGroupForTransfer(i + 1));
+                            groupList.addAll(entryDep1.getValue().combinationsWithoutRepetitions(i + 1));
                         }
+
+                        System.out.println("All Group List");
+                        System.out.println(MyPrint.printGroupList(groupList));
 
                         // Группы при переводе которых средняя зп увеличивается в двух отделах
                         List<int[]> growthAvgSalaryGroupList = new ArrayList<>();
@@ -83,11 +87,13 @@ public class Company {
                             }
                             BigDecimal avgSalaryInGroup = sumSalaryInGroup.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
 
-                            // TODO Возможно достаточно оставить одну проверку, но оставив только первую проверку в результате могут быть ошибочные данные
                             if (avgSalaryInGroup.compareTo(avgSalaryDep1) < 0 && avgSalaryInGroup.compareTo(avgSalaryDep2) > 0) {
                                 growthAvgSalaryGroupList.add(group);
                             }
                         }
+
+                        System.out.println("Growth Group List");
+                        System.out.println(MyPrint.printGroupList(growthAvgSalaryGroupList));
 
                         //System.out.println("Group List: " + groupList);
 

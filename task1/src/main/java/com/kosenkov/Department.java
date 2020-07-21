@@ -92,18 +92,15 @@ public class Department {
         }
     }
 
-    public List<int[]> allListGroupForTransfer(int k) {
-        // List<int[]> res = new ArrayList<>();
+    public List<int[]> combinationsWithoutRepetitions(int k) {
         List<int[]> res = new LinkedList<>(); // Для сохранения порядка вывода от меньших групп к более большим
 
-        System.out.println(this.getDepartmentName());
+        //System.out.println(this.getDepartmentName());
         int n = employeeList.size();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = i + 1;
         }
-
-        int num = 1;
 
         while (nextSet(arr, n, k)) {
 
@@ -113,15 +110,19 @@ public class Department {
             }
             System.out.println();
 
-            if (validationGroupForTransfer(arr, k)) {
+
+            res.add(Arrays.copyOf(arr, k));
+
+            // Условие что рассматриваем только те группы у которых средняя зп меньше чем средняя зп по отделу
+            /*if (validationGroupForTransfer(arr, k)) {
                 res.add(Arrays.copyOf(arr, k));
-            }
+            }*/
         }
 
-        System.out.println("RES: " + res);
+        /*System.out.println("RES: " + res);
         for (int[] mas : res) {
             System.out.println(Arrays.toString(mas));
-        }
+        }*/
         return res;
     }
 
@@ -143,12 +144,7 @@ public class Department {
         for (int i = 0; i < k; i++) {
             sumSalary = sumSalary.add(employeeList.get(group[i] - 1).getSalary());
         }
-        /*for (int el : group) {
-            sumSalary = sumSalary.add(employeeList.get(el - 1).getSalary());
-        }*/
-        System.out.println("SUM: " + sumSalary.toString());
         BigDecimal avgGroupSalary = sumSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
-        System.out.println("Avg: " + avgGroupSalary.toString());
         return avgGroupSalary.compareTo(getAvgSalary()) < 0;
     }
 }
