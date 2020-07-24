@@ -6,11 +6,9 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * @author Kosenkov Ivan
- * Created by Kosenkov Ivan on 15.07.2020
- * task 1 part 2
- */
-
+ * @author Kosenkov Ivan on 15.07.2020
+ * Класс обеспечивает чтение из файла в формате .csv без использования внешних библиотек и проверку аргументов программы
+ * */
 public class ReadFile {
 
     public static final int LAST_NAME = 0; // Фамилия
@@ -18,7 +16,7 @@ public class ReadFile {
     public static final int SECOND_NAME = 2; // Отчество
     public static final int SALARY = 3; // Зарплата
     public static final int DEPARTMENT_NAME = 4; // Название отдела
-    public static final int LAST_FIELD = DEPARTMENT_NAME; // Название отдела
+    public static final int LAST_FIELD = DEPARTMENT_NAME; // Допустимое количество полей
 
     public static Company readFile(String fileName) {
 
@@ -81,14 +79,15 @@ public class ReadFile {
             System.exit(1);
         }
 
+        // Если входного файла не существует, то программа будет завершена
         if (!new File(args[Main.INPUT_FILE_ARGS_INDEX]).exists()) {
             System.out.println("Файла с именем " + args[Main.INPUT_FILE_ARGS_INDEX] + " не существует");
             System.exit(2);
         }
 
+        // Если файла не существует, то он будет создан
         if (!new File(args[Main.OUTPUT_FILE_ARGS_INDEX]).exists()) {
             System.out.println("Файла с именем " + args[Main.OUTPUT_FILE_ARGS_INDEX] + " не существует");
-            //System.exit(3);
         }
     }
 }

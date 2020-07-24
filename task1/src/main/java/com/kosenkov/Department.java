@@ -5,11 +5,10 @@ import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * @author Kosenkov Ivan
- * Created by Kosenkov Ivan on 09.07.2020
- * task 1
- */
-
+ * @author Kosenkov Ivan on 09.07.2020
+ * Класс описывающий отдел
+ * @see com.kosenkov.Employee
+ * */
 public class Department {
 
     private String departmentName;
@@ -30,12 +29,26 @@ public class Department {
         return departmentName;
     }
 
-    /* Рассчитать среднюю зарплату в отделе */
+    List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    /** Рассчитать среднюю зарплату в отделе */
     public BigDecimal getAvgSalary() {
         return this.getAvgSalary(this.getSumSalaryInDepartment(), this.employeeList.size());
     }
 
-    /* Сумма всех зарплат в отделе */
+    /**
+     * Рассчитать среднюю зарплату в отделе
+     * @param sumSalary Сумма зарплат по отделу
+     * @param num Количество человек в отделе
+     * @return Средняя зарплата по отделу
+     * */
+    public BigDecimal getAvgSalary(BigDecimal sumSalary, long num) {
+        return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.HALF_UP);
+    }
+
+    /** Сумма всех зарплат в отделе */
     public BigDecimal getSumSalaryInDepartment() {
         BigDecimal sumSalary = BigDecimal.valueOf(0.0);
         for (Employee em : employeeList) {
@@ -44,13 +57,12 @@ public class Department {
         return sumSalary;
     }
 
-    List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    /* Средняя зарплата по отделу */
-    public BigDecimal getAvgSalary(BigDecimal sumSalary, long num) {
-        return sumSalary.divide(BigDecimal.valueOf(num), 2, RoundingMode.HALF_UP);
+    BigDecimal getAvgGroupSalary(int[] group) {
+        BigDecimal sumGroupSalary = BigDecimal.valueOf(0.0);
+        for (int value : group) {
+            sumGroupSalary = sumGroupSalary.add(this.getEmployeeList().get(value - 1).getSalary());
+        }
+        return sumGroupSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
     }
 
     public String transferringEmployeeToAnotherDepartment(int employeeNum, Department depTo) {
@@ -81,20 +93,21 @@ public class Department {
     }
 
     public static boolean validationDepartmentName(String depName) {
-        if (depName.matches("[а-яА-Я 0-9]+") || depName.matches("[a-zA-Z 0-9]+") || depName.isEmpty()) {
+        if (depName.matches("[а-яА-Я0-9]+[а-яА-Я 0-9]*") || depName.matches("[a-zA-Z0-9]+[a-zA-Z 0-9]*")) {
             return true;
         } else {
-            System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Отброшен сотрудник с именем отдела: " + depName);
+            System.out.println(Colour.ANSI_YELLOW + "Предупреждение!" + Colour.ANSI_RESET + " Отброшен сотрудник - недопустимое имя отдела: " + depName);
             return false;
         }
     }
 
-    BigDecimal getAvgGroupSalary(int[] group) {
-        BigDecimal sumGroupSalary = BigDecimal.valueOf(0.0);
-        for (int value : group) {
-            sumGroupSalary = sumGroupSalary.add(this.getEmployeeList().get(value - 1).getSalary());
+    public boolean validationGroupForTransfer(int[] group, int k) {
+        BigDecimal sumSalary = BigDecimal.valueOf(0.0);
+        for (int i = 0; i < k; i++) {
+            sumSalary = sumSalary.add(employeeList.get(group[i] - 1).getSalary());
         }
-        return sumGroupSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
+        BigDecimal avgGroupSalary = sumSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
+        return avgGroupSalary.compareTo(getAvgSalary()) < 0;
     }
 
     public List<int[]> combinationsWithoutRepetitionsAndAvgGroupSalaryLessThanAvgInDep(int k) {
@@ -127,14 +140,5 @@ public class Department {
             }
         }
         return false;
-    }
-
-    public boolean validationGroupForTransfer(int[] group, int k) {
-        BigDecimal sumSalary = BigDecimal.valueOf(0.0);
-        for (int i = 0; i < k; i++) {
-            sumSalary = sumSalary.add(employeeList.get(group[i] - 1).getSalary());
-        }
-        BigDecimal avgGroupSalary = sumSalary.divide(BigDecimal.valueOf(group.length), 2, RoundingMode.HALF_UP);
-        return avgGroupSalary.compareTo(getAvgSalary()) < 0;
     }
 }

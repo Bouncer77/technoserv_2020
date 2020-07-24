@@ -1,14 +1,12 @@
 package com.kosenkov;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * @author Kosenkov Ivan
- * Created by Kosenkov Ivan on 09.07.2020
- * task 1
+ * @author Kosenkov Ivan on 09.07.2020
+ * Класс описывающий сотрудника
  */
 public class Employee {
 
@@ -22,6 +20,26 @@ public class Employee {
         this.lastName = lastName;
         this.secondName = secondName;
         this.salary = salary;
+    }
+
+    BigDecimal getSalary() {
+        return salary;
+    }
+
+    String getFirstName() {
+        return firstName;
+    }
+
+    String getLastName() {
+        return lastName;
+    }
+
+    String getSecondName() {
+        return secondName;
+    }
+
+    String getFio() {
+        return lastName + " " + firstName + " " + secondName;
     }
 
     @Override
@@ -38,43 +56,27 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        if (!Objects.equals(firstName, employee.firstName)) return false;
-        if (!Objects.equals(lastName, employee.lastName)) return false;
-        if (!Objects.equals(secondName, employee.secondName)) return false;
-        return Objects.equals(salary, employee.salary);
+        if (!lastName.equals(employee.lastName)) return false;
+        if (!firstName.equals(employee.firstName)) return false;
+        if (secondName != null ? !secondName.equals(employee.secondName) : employee.secondName != null) return false;
+        return salary.equals(employee.salary);
     }
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        int result = lastName.hashCode();
+        result = 31 * result + firstName.hashCode();
         result = 31 * result + (secondName != null ? secondName.hashCode() : 0);
-        result = 31 * result + (salary != null ? salary.hashCode() : 0);
+        result = 31 * result + salary.hashCode();
         return result;
     }
-
-    BigDecimal getSalary() {
-        return salary;
-    }
-
-    String getFirstName() {
-        return firstName;
-    }
-
-    String getLastName() {
-        return lastName;
-    }
-
-    String getSecondName() { return secondName; }
-
-    String getFio() { return lastName + " " + firstName + " " + secondName; }
 
     public static boolean validationSalary(String salaryLine) {
 
         if (salaryLine.matches("\\d+\\.\\d{2}") || salaryLine.matches("\\d+")) {
             return true;
         } else {
-            System.out.println(MyPrint.printWarning() + " Отброшен сотрудник с зарплатой: " + salaryLine);
+            System.out.println(MyPrint.printWarning() + " Отброшен сотрудник - неверно указан формат зарплаты: " + salaryLine);
             return false;
         }
     }

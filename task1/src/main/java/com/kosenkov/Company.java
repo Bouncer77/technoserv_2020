@@ -5,11 +5,10 @@ import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * @author Kosenkov Ivan
- * Created by Kosenkov Ivan on 13.07.2020
- * task 1 part 3
- */
-
+ * @author Kosenkov Ivan on 13.07.2020
+ * Класс описывающий компанию
+ * @see com.kosenkov.Department
+ * */
 public class Company {
 
     String companyName; //  = inputFileName

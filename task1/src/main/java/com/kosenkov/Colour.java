@@ -1,11 +1,9 @@
 package com.kosenkov;
 
 /**
- * @author Kosenkov Ivan
- * Created by Kosenkov Ivan on 15.07.2020
- * lesson
- */
-
+ * @author Kosenkov Ivan on 15.07.2020
+ * Класс хранит константы для цветного вывода в стандартный поток вывода
+ * */
 public class Colour {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
