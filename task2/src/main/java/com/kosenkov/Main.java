@@ -16,8 +16,8 @@ public class Main {
         ArrayList<Row> tableB = readTable(FILE_B);
 
         List<Row> ijList = MyArrList.innerJoinList(tableA, tableB);
-        MyPrint.printTable(tableA, "Table A");
-        MyPrint.printTable(tableB, "Table B");
+        MyPrint.printTable(tableA, "Таблица A");
+        MyPrint.printTable(tableB, "Таблица B");
 
         MyPrint.printTable(ijList, "Внутренние соединение таблиц (ArrayList)", true);
 
