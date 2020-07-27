@@ -3,6 +3,8 @@ package com.kosenkov;
 import java.util.List;
 import java.util.Map;
 
+import static com.kosenkov.Colour.*;
+
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 25.07.2020
@@ -33,7 +35,9 @@ public class MyPrint {
 
         printHeadTable(tableName, innerJoinTable);
         for (Row row : rowList) {
-            System.out.println(row.getIndex() + "\t" + row.getValue());
+            System.out.print(row.getIndex() + "\t");
+            String str = row.getValue();
+            colorPrintElements(str, innerJoinTable);
         }
         System.out.println();
     }
@@ -43,18 +47,31 @@ public class MyPrint {
         printHeadTable(tableName, innerJoinTable);
         for (Map.Entry<Integer, List<String>> el : map.entrySet()) {
             for (String str : el.getValue()) {
-                System.out.println(el.getKey() + "\t" + str);
+                System.out.print(el.getKey() + "\t");
+                colorPrintElements(str, innerJoinTable);
             }
         }
         System.out.println();
     }
 
     public static void printHeadTable(String tableName, boolean innerJoinTable) {
-        System.out.println(tableName);
+
         if (innerJoinTable) {
-            System.out.println("ID\tA.VALUE\tB.VALUE");
+            System.out.println(Colour.cyan(tableName));
+            System.out.println(Colour.red("ID") + "\t" + Colour.green("A") + "." + Colour.yellow("VALUE") +
+                    "\t" + Colour.blue("B") + "."+ Colour.yellow("VALUE"));
         } else {
-            System.out.println("ID\tVALUE");
+            System.out.println(Colour.purple(tableName));
+            System.out.println(Colour.red("ID") + "\t" + Colour.yellow("VALUE"));
+        }
+    }
+
+    private static void colorPrintElements(String str, boolean innerJoinTable) {
+        if (innerJoinTable) {
+            String[] strings = str.split(" ");
+            System.out.println(green(strings[0]) + "\t" + blue(strings[1]));
+        } else {
+            System.out.println(green(str));
         }
     }
 }

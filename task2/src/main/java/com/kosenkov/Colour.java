@@ -19,7 +19,13 @@ public class Colour {
         return ANSI_YELLOW + msg + ANSI_RESET;
     }
 
-    public static String red(String msg) {
-        return ANSI_RED + msg + ANSI_RESET;
-    }
+    public static String blue(String msg) { return ANSI_BLUE + msg + ANSI_RESET; }
+
+    public static String green(String msg) { return ANSI_GREEN + msg + ANSI_RESET; }
+
+    public static String purple(String msg) { return ANSI_PURPLE + msg + ANSI_RESET; }
+
+    public static String cyan(String msg) { return ANSI_CYAN + msg + ANSI_RESET; }
+
+    public static String red(String msg) { return ANSI_RED + msg + ANSI_RESET; }
 }
