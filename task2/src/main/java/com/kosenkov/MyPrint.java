@@ -14,7 +14,7 @@ public class MyPrint {
 
         printHeadTable(innerJoinTable);
         for (Row row : rowList) {
-            System.out.println(row.getIndex() + "\t" + row.getString());
+            System.out.println(row.getIndex() + "\t" + row.getValue());
         }
     }
 

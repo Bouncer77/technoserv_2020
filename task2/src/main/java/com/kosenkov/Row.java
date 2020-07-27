@@ -14,11 +14,11 @@ public class Row implements Comparable<Row> {
     public final static int VALUE = 1;
 
     private int index;
-    private String string;
+    private String value;
 
-    public Row(int index, String string) {
+    public Row(int index, String value) {
         this.index = index;
-        this.string = string;
+        this.value = value;
     }
 
     public static boolean validationRow(String[] strings) {
@@ -40,8 +40,8 @@ public class Row implements Comparable<Row> {
         return index;
     }
 
-    String getString() {
-        return string;
+    String getValue() {
+        return value;
     }
 
     @Override
@@ -52,13 +52,13 @@ public class Row implements Comparable<Row> {
         Row row = (Row) o;
 
         if (index != row.index) return false;
-        return string.equals(row.string);
+        return value.equals(row.value);
     }
 
     @Override
     public int hashCode() {
         int result = index;
-        result = 31 * result + string.hashCode();
+        result = 31 * result + value.hashCode();
         return result;
     }
 
@@ -66,7 +66,7 @@ public class Row implements Comparable<Row> {
     public String toString() {
         return "Row{" +
                 "index=" + index +
-                ", string='" + string + '\'' +
+                ", string='" + value + '\'' +
                 '}';
     }
 
