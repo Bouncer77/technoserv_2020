@@ -4,62 +4,47 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-/**
- * Hello world!
- *
- */
 public class Main {
 
     private final static String FILE_A = "tableA.csv";
     private final static String FILE_B = "tableB.csv";
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
         // 1. ArrayList
         ArrayList<Row> tableA = readTable(FILE_A);
         ArrayList<Row> tableB = readTable(FILE_B);
 
         List<Row> ijList = Main.innerJoinList(tableA, tableB);
-        System.out.println("Table A");
-        MyPrint.printListTable(tableA, false);
-        System.out.println();
-        System.out.println("Table B");
-        MyPrint.printListTable(tableB, false);
-        System.out.println();
+        MyPrint.printTable(tableA, "Table A");
+        MyPrint.printTable(tableB, "Table B");
 
-        System.out.println("innerJoinList");
-        MyPrint.printListTable(ijList, true);
-        System.out.println();
+        MyPrint.printTable(ijList, "Внутренние соединение таблиц (ArrayList)", true);
 
         // 2. Отсортированный LinkedList
         LinkedList<Row> tableALinkedList = new LinkedList<>(tableA);
         Collections.sort(tableALinkedList);
-        System.out.println("Отсортированная таблица A");
-        MyPrint.printListTable(tableALinkedList, false);
+        MyPrint.printTable(tableALinkedList, "Отсортированная по ID таблица A");
         LinkedList<Row> tableBLinkedList = new LinkedList<>(tableB);
         Collections.sort(tableBLinkedList);
-        System.out.println("Отсортированная таблица B");
-        MyPrint.printListTable(tableBLinkedList, false);
+        MyPrint.printTable(tableBLinkedList, "Отсортированная по ID таблица B");
         List<Row> ijSortList = Main.innerJoinSortList(tableALinkedList, tableBLinkedList);
 
-        System.out.println("innerJoinSortList");
-        MyPrint.printListTable(ijSortList, true);
-        System.out.println();
+        MyPrint.printTable(ijSortList, "Внутренние соединение таблиц (LinkedList)", true);
 
         // 3. HashMap
         Map<Integer, List<String>> mapA = Main.createMapByRowList(tableA);
+        MyPrint.printTable(mapA, "Таблица A (HashMap)");
         Map<Integer, List<String>> mapB = Main.createMapByRowList(tableB);
-
+        MyPrint.printTable(mapB, "Таблица B (HashMap)");
         Map<Integer, List<String>> ijMap = Main.innerJoinMap(mapA, mapB);
 
-        // 3 out
-        System.out.println("innerJoinMap");
-        MyPrint.printMapTable(ijMap, true);
+        MyPrint.printTable(ijMap, "Внутренние соединение таблиц (HashMap)", true);
     }
 
     public static ArrayList<Row> readTable(String fileName) {
         ArrayList<Row> rowList = new ArrayList<>();
-        try(final Scanner scanner = new Scanner(new File(fileName))) {
+        try (final Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
                 String[] inputFields = scanner.nextLine().split(",");
                 for (int i = 0; i < inputFields.length; i++)
@@ -182,7 +167,7 @@ public class Main {
 
         for (Map.Entry<Integer, List<String>> entryA : mapA.entrySet()) {
             for (Map.Entry<Integer, List<String>> entryB : mapB.entrySet()) {
-                if (entryA.getKey() == entryB.getKey()) {
+                if (entryA.getKey().equals(entryB.getKey())) {
                     if (!resMap.containsKey(entryA.getKey())) {
                         List<String> strList = new LinkedList<>();
                         for (String str1 : entryA.getValue()) {
@@ -198,8 +183,6 @@ public class Main {
 
         return resMap;
     }
-
-
 
     private static Map<Integer, List<String>> createMapByRowList(List<Row> rowList) {
         Map<Integer, List<String>> resMap = new HashMap<>();

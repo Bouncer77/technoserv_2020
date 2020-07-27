@@ -10,24 +10,47 @@ import java.util.Map;
 
 public class MyPrint {
 
-    public static void printListTable(List<Row> rowList, boolean innerJoinTable) {
+    private static final String DEFAULT_TABLE_NAME = "Таблица";
+    private static final boolean DEFAULT_INNER_JOIN_TABLE = false;
 
-        printHeadTable(innerJoinTable);
+    public static void printTable(Map<Integer, List<String>> map) {
+        printTable(map, DEFAULT_TABLE_NAME, DEFAULT_INNER_JOIN_TABLE);
+    }
+
+    public static void printTable(Map<Integer, List<String>> map, String tableName) {
+        printTable(map, tableName, DEFAULT_INNER_JOIN_TABLE);
+    }
+
+    public static void printTable(List<Row> rowList) {
+        printTable(rowList, DEFAULT_TABLE_NAME, DEFAULT_INNER_JOIN_TABLE);
+    }
+
+    public static void printTable(List<Row> rowList, String tableName) {
+        printTable(rowList, tableName, DEFAULT_INNER_JOIN_TABLE);
+    }
+
+    public static void printTable(List<Row> rowList, String tableName, boolean innerJoinTable) {
+
+        printHeadTable(tableName, innerJoinTable);
         for (Row row : rowList) {
             System.out.println(row.getIndex() + "\t" + row.getValue());
         }
+        System.out.println();
     }
 
-    public static void printMapTable(Map<Integer, List<String>> map, boolean innerJoinTable) {
-        printHeadTable(innerJoinTable);
+    public static void printTable(Map<Integer, List<String>> map, String tableName, boolean innerJoinTable) {
+
+        printHeadTable(tableName, innerJoinTable);
         for (Map.Entry<Integer, List<String>> el : map.entrySet()) {
             for (String str : el.getValue()) {
                 System.out.println(el.getKey() + "\t" + str);
             }
         }
+        System.out.println();
     }
 
-    public static void printHeadTable(boolean innerJoinTable) {
+    public static void printHeadTable(String tableName, boolean innerJoinTable) {
+        System.out.println(tableName);
         if (innerJoinTable) {
             System.out.println("ID\tA.VALUE\tB.VALUE");
         } else {
