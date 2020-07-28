@@ -14,4 +14,6 @@ public class Colour {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
+
+    public static String red(String msg) { return Colour.ANSI_RED + msg + Colour.ANSI_RESET; }
 }

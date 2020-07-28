@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -32,9 +33,11 @@ public class MyPrint {
 
         LocalDateTime localDateTime = LocalDateTime.now();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dateAndTime = localDateTime.format(formatter);
+
         StringBuilder stringBuilder = new StringBuilder("***************************************\n" +
-                localDateTime.getYear() + "/" + localDateTime.getMonthValue() + "/" + localDateTime.getDayOfMonth() + " " +
-                localDateTime.getHour() + ":" + (localDateTime.getMinute() < 10? "0" + localDateTime.getMinute() : localDateTime.getMinute()) + "\n***************************************\n");
+                 dateAndTime + "\n***************************************\n");
         stringBuilder.append(company.getAllGroupEmployeeForTransfer());
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(fileName, true))) {
