@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MyRead {
+public class ReadInputFile {
     public static ArrayList<Row> readTable(String fileName) {
         ArrayList<Row> rowList = new ArrayList<>();
         try (final Scanner scanner = new Scanner(new File(fileName))) {
