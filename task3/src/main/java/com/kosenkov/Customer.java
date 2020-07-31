@@ -27,6 +27,9 @@ public class Customer extends Thread {
     }
 
     private void buyGoods(int count) {
+
+        if (count == 0) return;
+
         goods += count;
         numberTransactions++;
     }
