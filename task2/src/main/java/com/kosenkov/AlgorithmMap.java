@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MyMap {
+public class AlgorithmMap {
 
     // 3. HashMap
     public static Map<Integer, List<String>> innerJoinMap(List<Row> rowList1, List<Row> rowList2) {
@@ -33,18 +33,14 @@ public class MyMap {
         Map<Integer, List<String>> resMap = new HashMap<>();
 
         for (Map.Entry<Integer, List<String>> entryA : mapA.entrySet()) {
-            for (Map.Entry<Integer, List<String>> entryB : mapB.entrySet()) {
-                if (entryA.getKey().equals(entryB.getKey())) {
-                    if (!resMap.containsKey(entryA.getKey())) {
-                        List<String> strList = new LinkedList<>();
-                        for (String str1 : entryA.getValue()) {
-                            for (String str2 : entryB.getValue()) {
-                                strList.add(str1 + " " + str2);
-                            }
-                        }
-                        resMap.put(entryA.getKey(), strList);
+            if (mapB.containsKey(entryA.getKey())) {
+                List<String> strList = new LinkedList<>();
+                for (String val1 : entryA.getValue()) {
+                    for (String val2 : mapB.get(entryA.getKey())) {
+                        strList.add(val1 + " " + val2);
                     }
                 }
+                resMap.put(entryA.getKey(), strList);
             }
         }
 

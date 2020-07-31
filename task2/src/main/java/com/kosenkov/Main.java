@@ -2,7 +2,7 @@ package com.kosenkov;
 
 import java.util.*;
 
-import static com.kosenkov.MyRead.readTable;
+import static com.kosenkov.ReadInputFile.readTable;
 
 public class Main {
 
@@ -15,30 +15,30 @@ public class Main {
         ArrayList<Row> tableA = readTable(FILE_A);
         ArrayList<Row> tableB = readTable(FILE_B);
 
-        List<Row> ijList = MyArrList.innerJoinList(tableA, tableB);
-        MyPrint.printTable(tableA, "Таблица A");
-        MyPrint.printTable(tableB, "Таблица B");
+        List<Row> ijList = AlgorithmArrayList.innerJoinList(tableA, tableB);
+        PrintStdOut.printTable(tableA, "Таблица A");
+        PrintStdOut.printTable(tableB, "Таблица B");
 
-        MyPrint.printTable(ijList, "Внутренние соединение таблиц (ArrayList)", true);
+        PrintStdOut.printTable(ijList, "Внутренние соединение таблиц (ArrayList)", true);
 
         // 2. Отсортированный LinkedList
         LinkedList<Row> tableALinkedList = new LinkedList<>(tableA);
         Collections.sort(tableALinkedList);
-        MyPrint.printTable(tableALinkedList, "Отсортированная по ID таблица A");
+        PrintStdOut.printTable(tableALinkedList, "Отсортированная по ID таблица A");
         LinkedList<Row> tableBLinkedList = new LinkedList<>(tableB);
         Collections.sort(tableBLinkedList);
-        MyPrint.printTable(tableBLinkedList, "Отсортированная по ID таблица B");
-        List<Row> ijSortList = MyLinkedList.innerJoinSortList(tableALinkedList, tableBLinkedList);
+        PrintStdOut.printTable(tableBLinkedList, "Отсортированная по ID таблица B");
+        List<Row> ijSortList = AlgorithmLinkedList.innerJoinSortList(tableALinkedList, tableBLinkedList);
 
-        MyPrint.printTable(ijSortList, "Внутренние соединение таблиц (LinkedList)", true);
+        PrintStdOut.printTable(ijSortList, "Внутренние соединение таблиц (LinkedList)", true);
 
         // 3. HashMap
-        Map<Integer, List<String>> mapA = MyMap.createMapByRowList(tableA);
-        MyPrint.printTable(mapA, "Таблица A (HashMap)");
-        Map<Integer, List<String>> mapB = MyMap.createMapByRowList(tableB);
-        MyPrint.printTable(mapB, "Таблица B (HashMap)");
-        Map<Integer, List<String>> ijMap = MyMap.innerJoinMap(mapA, mapB);
+        Map<Integer, List<String>> mapA = AlgorithmMap.createMapByRowList(tableA);
+        PrintStdOut.printTable(mapA, "Таблица A (HashMap)");
+        Map<Integer, List<String>> mapB = AlgorithmMap.createMapByRowList(tableB);
+        PrintStdOut.printTable(mapB, "Таблица B (HashMap)");
+        Map<Integer, List<String>> ijMap = AlgorithmMap.innerJoinMap(mapA, mapB);
 
-        MyPrint.printTable(ijMap, "Внутренние соединение таблиц (HashMap)", true);
+        PrintStdOut.printTable(ijMap, "Внутренние соединение таблиц (HashMap)", true);
     }
 }

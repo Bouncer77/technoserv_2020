@@ -10,7 +10,7 @@ import static com.kosenkov.Colour.*;
  * Created by Kosenkov Ivan on 25.07.2020
  */
 
-public class MyPrint {
+public class PrintStdOut {
 
     private static final String DEFAULT_TABLE_NAME = "Таблица";
     private static final boolean DEFAULT_INNER_JOIN_TABLE = false;

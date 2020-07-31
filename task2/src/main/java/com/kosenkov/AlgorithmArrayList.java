@@ -3,7 +3,7 @@ package com.kosenkov;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyArrList {
+public class AlgorithmArrayList {
     // 1. ArrayList
     public static List<Row> innerJoinList(List<Row> rowList1, List<Row> rowList2) {
 

@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MyLinkedList {
+public class AlgorithmLinkedList {
     private static List<Row> findDubIndexList(ListIterator<Row> listIterator) {
         List<Row> resList = new LinkedList<>();
         Row startRow = listIterator.next();
