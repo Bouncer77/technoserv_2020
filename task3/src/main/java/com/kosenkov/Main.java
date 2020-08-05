@@ -13,15 +13,18 @@ public class Main {
 
         int customers = Integer.parseInt(args[0]);
         Customer.setCyclicBarrier(customers);
+        List<Thread> threadCustomerList = new ArrayList<>(customers);
         List<Customer> customerList = new ArrayList<>(customers);
 
         for (int i = 0; i < customers; i++) {
             Customer customer = new Customer();
             customerList.add(customer);
-            customer.start();
+            Thread customerThread = new Thread(customer);
+            threadCustomerList.add(customerThread);
+            customerThread.start();
         }
 
-        customerList.forEach(c -> {
+        threadCustomerList.forEach(c -> {
             try {
                 c.join();
             } catch (InterruptedException e) {
@@ -31,11 +34,15 @@ public class Main {
 
         int sumProducts = 0;
         int sumOperations = 0;
-        for (Customer customer : customerList){
+
+        for (int i = 0; i < customers; i++) {
+
+            Customer customer = customerList.get(i);
             sumProducts += customer.getGoods();
             sumOperations += customer.getNumberTransactions();
-            System.out.println(Colour.purple(customer.getName()) + customer);
+            System.out.println(threadCustomerList.get(i).getName() + customer);
         }
+
         System.out.println("all buyed goods = " + sumProducts + " | AllNumberTransactions = " + sumOperations);
         System.out.println(Store.printStdOut());
     }

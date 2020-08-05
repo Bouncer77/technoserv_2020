@@ -8,7 +8,7 @@ import java.util.concurrent.CyclicBarrier;
  * Created by Kosenkov Ivan on 31.07.2020
  */
 
-public class Customer extends Thread {
+public class Customer implements Runnable {
 
     private int goods = 0;
     private int numberTransactions = 0;
@@ -27,6 +27,9 @@ public class Customer extends Thread {
     }
 
     private void buyGoods(int count) {
+
+        if (count == 0) return;
+
         goods += count;
         numberTransactions++;
     }
