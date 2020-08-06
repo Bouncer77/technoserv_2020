@@ -8,7 +8,7 @@ package com.kosenkov;
 public class Utils {
 
     public static int getRandomCount(int min, int max) {
-        return (int) (Math.random() * max) + min;
+        return (int) (Math.random() * (max - min)) + min;
     }
 
     public static int getRandomCount() {
