@@ -22,8 +22,8 @@ public class Customer implements Runnable {
         return numberTransactions;
     }
 
-    public static void setCyclicBarrier(int buyers) {
-        barrier = new CyclicBarrier(buyers);
+    public static void setCyclicBarrier(int customer) {
+        barrier = new CyclicBarrier(customer);
     }
 
     private void buyGoods(int count) {
